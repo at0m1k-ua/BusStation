@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS bus_station;
 CREATE DATABASE bus_station;
 USE bus_station;
 
