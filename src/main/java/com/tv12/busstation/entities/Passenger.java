@@ -10,7 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "passenger",
+@Table(name = "passengers",
        uniqueConstraints = {@UniqueConstraint(name = "phone_constraint", columnNames = "phone")})
 public class Passenger {
     @Id
