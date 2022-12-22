@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -22,20 +22,25 @@ import javax.persistence.UniqueConstraint;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(
-        name = "journeys",
-        uniqueConstraints = {@UniqueConstraint(name = "platform_number_constrain", columnNames = "platform_number")}
-)
+@Table(name = "journeys")
 public class Journey {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, columnDefinition = "BIG INT")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, columnDefinition = "INT")
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "bus_id", nullable = false, columnDefinition = "BIG INT")
-    private Bus busId;
+    @JoinColumn(name = "route_id", nullable = false, columnDefinition = "INT")
+    private Route route;
 
-    @Column(name = "platform_number", nullable = false, columnDefinition = "INT")
-    private int platformNumber;
+    @ManyToOne
+    @JoinColumn(name = "bus_id", nullable = false, columnDefinition = "INT")
+    private Bus bus;
+
+    @ManyToOne
+    @JoinColumn(name = "driver_id", nullable = false, columnDefinition = "INT")
+    private Driver driver;
+
+    @Column(name = "start_date", nullable = false, columnDefinition = "DATE")
+    private Date startDate;
 }

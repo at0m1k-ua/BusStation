@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 @Setter
 @Getter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -16,17 +15,22 @@ import javax.persistence.*;
 )
 public class Bus {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, columnDefinition = "BIG INT")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, columnDefinition = "INT")
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "model_id", nullable = false, columnDefinition = "BIG INT")
-    private Bus modelId;
+    @JoinColumn(name = "model_id", nullable = false, columnDefinition = "INT")
+    private BusModel model;
 
     @Column(name = "color", nullable = false, columnDefinition = "TEXT")
     private String color;
 
     @Column(name = "licence_plate_number", nullable = false, columnDefinition = "TEXT")
     private String licencePlateNumber;
+
+    @Override
+    public String toString() {
+        return this.color + " " + this.model.getName() + ", " + this.licencePlateNumber;
+    }
 }

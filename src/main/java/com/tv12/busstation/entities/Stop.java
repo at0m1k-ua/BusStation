@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,34 +13,39 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.sql.Timestamp;
+import java.sql.Time;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(
-        name = "stops"
-)
+@Table(name = "stops")
 public class Stop {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, columnDefinition = "BIG INT")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, columnDefinition = "INT")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "journey_id", nullable = false, columnDefinition = "BIG INT")
-    private Journey journeyId;
+    @JoinColumn(name = "route_id", nullable = false, columnDefinition = "INT")
+    private Route route;
 
     @ManyToOne
-    @JoinColumn(name = "city_id", nullable = false, columnDefinition = "BIG INT")
-    private City cityId;
+    @JoinColumn(name = "city_id", nullable = false, columnDefinition = "INT")
+    private City city;
 
-    @Column(name = "time", nullable = false, columnDefinition = "TIMESTAMP")
-    private Timestamp time;
+    @Column(name = "time", nullable = false, columnDefinition = "TIME")
+    private Time time;
 
-    @Column(name = "price", nullable = false, columnDefinition = "FLOAT")
+    @Column(name = "price", nullable = false, columnDefinition = "INT")
     private int price;
+
+    @Column(name = "day_shift", nullable = false, columnDefinition = "INT")
+    private int dayShift;
+
+    @Override
+    public String toString() {
+        return "Stop at " + city.getName();
+    }
 }

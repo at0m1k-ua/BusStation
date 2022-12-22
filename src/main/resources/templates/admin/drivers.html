@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Material Design for Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="/css/mdb.min.css" />
+
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg">
+        <a href="/admin/cities"><button class="btn btn-primary mx-2">Міста</button></a>
+        <a href="/admin/buses"><button class="btn btn-primary mx-2">Автобуси</button></a>
+        <a href="/admin/drivers"><button class="btn btn-secondary mx-2">Водії</button></a>
+        <a href="/admin/routes"><button class="btn btn-primary mx-2">Маршрути</button></a>
+        <a href="/admin/journeys"><button class="btn btn-primary mx-2">Рейси</button></a>
+    </nav>
+
+    <div id="drivers" class="main-container">
+        <table class="table">
+            <tr>
+                <th><h4>ID</h4></th>
+                <th><h4>Прізвище</h4></th>
+                <th><h4>Ім'я</h4></th>
+                <th><h4>По батькові</h4></th>
+                <th><h4>Телефон</h4></th>
+                <th><h4>Email</h4></th>
+            </tr>
+            <!--/*@thymesVar id="drivers" type="java.lang.Iterable"*/-->
+            <tr th:each="driver: ${drivers}">
+                <!--/*@thymesVar id="driver" type="com.tv12.busstation.entities.Driver"*/-->
+                <td th:text="${driver.getId()}"></td>
+                <form action="/admin/drivers" th:method="patch">
+                    <input name="id" type="hidden" th:value="${driver.getId()}">
+                    <td><input name="surname" th:value="${driver.getSurname()}" class="form-control"></td>
+                    <td><input name="name" th:value="${driver.getName()}" class="form-control"></td>
+                    <td><input name="patronymic" th:value="${driver.getPatronymic()}" class="form-control"></td>
+                    <td><input name="phone" th:value="${driver.getPhone()}" class="form-control"></td>
+                    <td><input name="email" th:value="${driver.getEmail()}" class="form-control"></td>
+                    <td><button type="submit" class="btn btn-primary table-button">Зберегти</button></td>
+                </form>
+                <form action="/admin/drivers" th:method="delete">
+                    <input name="id" type="hidden" th:value="${driver.getId()}">
+                    <td><button class="btn btn-primary table-button">Видалити</button></td>
+                </form>
+            </tr>
+            <tr>
+                <td></td>
+                <form action="/admin/drivers" method="post">
+                    <td><input name="surname" class="form-control"></td>
+                    <td><input name="name" class="form-control"></td>
+                    <td><input name="patronymic" class="form-control"></td>
+                    <td><input name="phone" class="form-control"></td>
+                    <td><input name="email" class="form-control"></td>
+                    <td><button type="submit" class="btn btn-primary table-button">Зберегти</button></td>
+                </form>
+            </tr>
+        </table>
+    </div>
+
+    <!-- MDB -->
+    <script type="text/javascript" src="/js/mdb.min.js"></script>
+</body>
+
+</html>

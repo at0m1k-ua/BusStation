@@ -16,14 +16,14 @@ import javax.persistence.*;
 )
 public class BusModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, columnDefinition = "BIG INT")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, columnDefinition = "INT")
+    private Integer id;
 
     @Column(name = "name", nullable = false, columnDefinition = "TEXT")
     private String name;
 
     @Column(name = "seats_number", nullable = false, columnDefinition = "INT")
-    private String seatsNumber;
+    private int seatsNumber;
 
 }

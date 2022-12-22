@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Material Design for Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+  <!-- MDB -->
+  <link rel="stylesheet" href="/css/mdb.min.css" />
+
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg">
+    <a href="/admin/cities"><button class="btn btn-primary mx-2">Міста</button></a>
+    <a href="/admin/buses"><button class="btn btn-primary mx-2">Автобуси</button></a>
+    <a href="/admin/drivers"><button class="btn btn-primary mx-2">Водії</button></a>
+    <a href="/admin/routes"><button class="btn btn-primary mx-2">Маршрути</button></a>
+    <a href="/admin/journeys"><button class="btn btn-primary mx-2">Рейси</button></a>
+  </nav>
+
+  <div id="routes" class="main-container">
+    <!--/*@thymesVar id="routeId" type="java.lang.Integer"*/-->
+    <table class="table">
+      <tr>
+        <th><h4>ID</h4></th>
+        <th><h4>Місто</h4></th>
+        <th><h4>День</h4></th>
+        <th><h4>Час</h4></th>
+        <th><h4 title="Вартість квитка від попередньої станції до поточної">Вартість</h4></th>
+      </tr>
+      <!--/*@thymesVar id="stops" type="java.lang.Iterable"*/-->
+      <!--/*@thymesVar id="stop" type="com.tv12.busstation.entities.Stop"*/-->
+      <tr th:each="stop: ${stops}">
+        <td th:text="${stop.getId()}"></td>
+        <form action="/admin/stops" th:method="patch">
+          <input name="id" type="hidden" th:value="${stop.getId()}">
+          <input name="routeId" type="hidden" th:value="${routeId}">
+          <td>
+            <select name="cityId" class="form-select">
+              <!--/*@thymesVar id="cities" type="java.lang.Iterable"*/-->
+              <!--/*@thymesVar id="city" type="com.tv12.busstation.entities.City"*/-->
+              <option th:each="city: ${cities}"
+                      th:value="${city.getId()}"
+                      th:text="${city.getName()}"
+                      th:selected="${city.getId() == stop.getCity().getId()}"></option>
+            </select>
+          </td>
+          <td><input name="dayShift" type="number" th:value="${stop.getDayShift()}" class="form-control"></td>
+          <td><input name="time" type="time" th:value="${stop.getTime()}" class="form-control"></td>
+          <td><input name="price" type="number" th:value="${stop.getPrice()}" class="form-control"></td>
+          <td><button type="submit" class="btn btn-primary">Зберегти</button></td>
+        </form>
+        <td>
+          <form action="/admin/stops" th:method="delete">
+            <input name="id" type="hidden" th:value="${stop.getId()}">
+            <input name="routeId" type="hidden" th:value="${routeId}">
+            <button type="submit" class="btn btn-primary">Видалити</button>
+          </form>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <form action="/admin/stops" th:method="post">
+          <td>
+            <select name="cityId" class="form-select">
+              <!--/*@thymesVar id="cities" type="java.lang.Iterable"*/-->
+              <!--/*@thymesVar id="city" type="com.tv12.busstation.entities.City"*/-->
+              <option value="0" selected disabled>(не задано)</option>
+              <option th:each="city: ${cities}"
+                      th:value="${city.getId()}"
+                      th:text="${city.getName()}"></option>
+            </select>
+          </td>
+          <input name="routeId" type="hidden" th:value="${routeId}">
+          <td><input name="dayShift" type="number" class="form-control"></td>
+          <td><input name="time" type="time" class="form-control"></td>
+          <td><input name="price" type="number" class="form-control"></td>
+          <td><button type="submit" class="btn btn-primary">Зберегти</button></td>
+        </form>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+</body>
+
+</html>

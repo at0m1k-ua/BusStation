@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Material Design for Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+  <!-- MDB -->
+  <link rel="stylesheet" href="/css/mdb.min.css" />
+
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg">
+    <a href="/admin/cities"><button class="btn btn-primary mx-2">Міста</button></a>
+    <a href="/admin/buses"><button class="btn btn-secondary mx-2">Автобуси</button></a>
+    <a href="/admin/drivers"><button class="btn btn-primary mx-2">Водії</button></a>
+    <a href="/admin/routes"><button class="btn btn-primary mx-2">Маршрути</button></a>
+    <a href="/admin/journeys"><button class="btn btn-primary mx-2">Рейси</button></a>
+  </nav>
+
+  <div id="buses" class="main-container">
+    <table class="table">
+      <tr>
+        <th><h4>ID</h4></th>
+        <th><h4>Модель</h4></th>
+        <th><h4>Колір</h4></th>
+        <th><h4>Номерний знак</h4></th>
+      </tr>
+      <!--/*@thymesVar id="buses" type="java.lang.Iterable"*/-->
+      <!--/*@thymesVar id="bus" type="com.tv12.busstation.entities.Bus"*/-->
+      <tr th:each="bus: ${buses}">
+        <td th:text="${bus.getId()}"></td>
+        <form action="/admin/buses" th:method="patch">
+          <td>
+            <input type="hidden" name="id" th:value="${bus.getId()}">
+            <select name="modelId" class="form-select">
+              <!--/*@thymesVar id="bus_models" type="java.lang.Iterable"*/-->
+              <!--/*@thymesVar id="bus_model" type="com.tv12.busstation.entities.BusModel"*/-->
+              <option th:each="bus_model: ${bus_models}"
+                      th:value="${bus_model.getId()}"
+                      th:text="${bus_model.getName()}"
+                      th:selected="${bus_model.getId() == bus.getModel().getId()}"
+              ></option>
+            </select>
+          </td>
+          <td><input class="form-control" name="color" th:value="${bus.getColor()}"></td>
+          <td><input class="form-control" name="licensePlateNumber" th:value="${bus.getLicencePlateNumber()}"></td>
+          <td><button type="submit" class="btn btn-primary table-button">Зберегти</button></td>
+        </form>
+        <form action="/admin/buses" th:method="delete">
+          <input name="id" type="hidden" th:value="${bus.getId()}">
+          <td><button type="submit" class="btn btn-primary table-button">Видалити</button></td>
+        </form>
+      </tr>
+      <tr>
+        <td></td>
+        <form action="/admin/buses" method="post">
+          <td>
+            <select name="modelId" class="form-select">
+              <!--/*@thymesVar id="bus_models" type="java.lang.Iterable"*/-->
+              <!--/*@thymesVar id="bus_model" type="com.tv12.busstation.entities.BusModel"*/-->
+              <option value="0" selected disabled>(не задано)</option>
+              <option th:each="bus_model: ${bus_models}"
+                      th:value="${bus_model.getId()}"
+                      th:text="${bus_model.getName()}"></option>
+            </select>
+          </td>
+          <td><input name="color" class="form-control"></td>
+          <td><input name="licensePlateNumber" class="form-control"></td>
+          <td><button type="submit" class="btn btn-primary table-button">Зберегти</button></td>
+        </form>
+      </tr>
+      <tr>
+        <td></td>
+        <td><button class="btn btn-primary table-button"
+                    data-mdb-toggle="modal"
+                    data-mdb-target="#addBusModel">Додати</button></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="modal fade" id="addBusModel" tabindex="-1" aria-labelledby="addBusModel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Додати модель автобуса</h5>
+          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/admin/buses/models" method="post">
+          <div class="modal-body">
+            <input name="name" class="form-control" style="margin: 10px" placeholder="Назва моделі">
+            <input name="seatsNumber" type="number" class="form-control" style="margin: 10px" placeholder="Кількість місць">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Відмінити</button>
+            <button type="submit" class="btn btn-primary">Зберегти</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MDB -->
+  <script type="text/javascript" src="/js/mdb.min.js"></script>
+</body>
+
+</html>

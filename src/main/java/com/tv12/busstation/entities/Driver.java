@@ -8,15 +8,14 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Entity
-@Table(name = "passengers",
-       uniqueConstraints = {@UniqueConstraint(name = "phone_constraint", columnNames = "phone")})
-public class Passenger {
+@Table(name = "drivers",
+        uniqueConstraints = {@UniqueConstraint(name = "phone_constraint", columnNames = "phone")})
+public class Driver {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, columnDefinition = "INT")
-    private int id;
+    private Integer id;
 
     @Column(name = "surname", nullable = false, columnDefinition = "TEXT")
     private String surname;
@@ -32,4 +31,9 @@ public class Passenger {
 
     @Column(name = "email", nullable = false, columnDefinition = "TEXT")
     private String email;
+
+    @Override
+    public String toString() {
+        return String.join(" ", surname, name, patronymic);
+    }
 }

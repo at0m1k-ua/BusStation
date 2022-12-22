@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Material Design for Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="/css/mdb.min.css" />
+
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg">
+        <a href="/admin/cities"><button class="btn btn-primary mx-2">Міста</button></a>
+        <a href="/admin/buses"><button class="btn btn-primary mx-2">Автобуси</button></a>
+        <a href="/admin/drivers"><button class="btn btn-primary mx-2">Водії</button></a>
+        <a href="/admin/routes"><button class="btn btn-primary mx-2">Маршрути</button></a>
+        <a href="/admin/journeys"><button class="btn btn-secondary mx-2">Рейси</button></a>
+    </nav>
+
+    <div id="journeys" class="main-container">
+        <table class="table">
+            <tr>
+                <th><h4>ID</h4></th>
+                <th><h4>Маршрут</h4></th>
+                <th><h4>Автобус</h4></th>
+                <th><h4>Водій</h4></th>
+                <th><h4>Дата відправлення</h4></th>
+            </tr>
+            <!--/*@thymesVar id="journeys" type="java.lang.Iterable"*/-->
+            <!--/*@thymesVar id="journey" type="com.tv12.busstation.entities.Journey"*/-->
+            <tr th:each="journey: ${journeys}">
+                <td th:text="${journey.getId()}"></td>
+                <form action="/admin/journeys" th:method="patch">
+                    <input name="id" type="hidden" th:value="${journey.getId()}">
+                    <td>
+                        <select name="routeId" class="form-select">
+                            <!--/*@thymesVar id="routes" type="java.lang.Iterable"*/-->
+                            <!--/*@thymesVar id="route" type="com.tv12.busstation.entities.Route"*/-->
+                            <option th:each="route: ${routes}"
+                                    th:value="${route.getId()}"
+                                    th:text="${route.toString()}"
+                                    th:selected="${route.getId() == journey.getRoute().getId()}"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="busId" class="form-select">
+                            <!--/*@thymesVar id="buses" type="java.lang.Iterable"*/-->
+                            <!--/*@thymesVar id="bus" type="com.tv12.busstation.entities.Bus"*/-->
+                            <option th:each="bus: ${buses}"
+                                    th:value="${bus.getId()}"
+                                    th:text="${bus.toString()}"
+                                    th:selected="${bus.getId() == journey.getBus().getId()}"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="driverId" class="form-select">
+                            <!--/*@thymesVar id="drivers" type="java.lang.Iterable"*/-->
+                            <!--/*@thymesVar id="driver" type="com.tv12.busstation.entities.Driver"*/-->
+                            <option th:each="driver: ${drivers}"
+                                    th:value="${driver.getId()}"
+                                    th:text="${driver.toString()}"
+                                    th:selected="${driver.getId() == journey.getDriver().getId()}"></option>
+                        </select>
+                    </td>
+                    <td><input type="date" name="startDate" th:value="${journey.getStartDate()}" class="form-control"></td>
+                    <td><button class="btn btn-primary table-button">Зберегти</button></td>
+                </form>
+                <td>
+                    <form action="/admin/journeys" th:method="delete">
+                        <input type="hidden" name="id" th:value="${journey.getId()}">
+                        <button class="btn btn-primary table-button">Видалити</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <form action="/admin/journeys" method="post">
+                    <td>
+                        <select name="routeId" class="form-select">
+                            <!--/*@thymesVar id="routes" type="java.lang.Iterable"*/-->
+                            <!--/*@thymesVar id="route" type="com.tv12.busstation.entities.Route"*/-->
+                            <option value="0" selected disabled>(не задано)</option>
+                            <option th:each="route: ${routes}"
+                                    th:value="${route.getId()}"
+                                    th:text="${route.toString()}"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="busId" class="form-select">
+                            <!--/*@thymesVar id="buses" type="java.lang.Iterable"*/-->
+                            <!--/*@thymesVar id="bus" type="com.tv12.busstation.entities.Bus"*/-->
+                            <option value="0" selected disabled>(не задано)</option>
+                            <option th:each="bus: ${buses}"
+                                    th:value="${bus.getId()}"
+                                    th:text="${bus.toString()}"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="driverId" class="form-select">
+                            <!--/*@thymesVar id="drivers" type="java.lang.Iterable"*/-->
+                            <!--/*@thymesVar id="driver" type="com.tv12.busstation.entities.Driver"*/-->
+                            <option value="0" selected disabled>(не задано)</option>
+                            <option th:each="driver: ${drivers}"
+                                    th:value="${driver.getId()}"
+                                    th:text="${driver.toString()}"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <input name="startDate" type="date" class="form-control">
+                    </td>
+                    <td><button class="btn btn-primary table-button">Зберегти</button></td>
+                </form>
+            </tr>
+        </table>
+    </div>
+
+    <!-- MDB -->
+    <script type="text/javascript" src="/js/mdb.min.js"></script>
+</body>
+
+</html>

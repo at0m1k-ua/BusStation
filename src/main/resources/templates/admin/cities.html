@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Material Design for Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+  <!-- MDB -->
+  <link rel="stylesheet" href="/css/mdb.min.css" />
+
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg">
+    <a href="/admin/cities"><button class="btn btn-secondary mx-2">Міста</button></a>
+    <a href="/admin/buses"><button class="btn btn-primary mx-2">Автобуси</button></a>
+    <a href="/admin/drivers"><button class="btn btn-primary mx-2">Водії</button></a>
+    <a href="/admin/routes"><button class="btn btn-primary mx-2">Маршрути</button></a>
+    <a href="/admin/journeys"><button class="btn btn-primary mx-2">Рейси</button></a>
+  </nav>
+
+  <div id="cities" class="main-container">
+    <table class="table">
+      <tr>
+        <th><h4>ID</h4></th>
+        <th><h4>Місто</h4></th>
+      </tr>
+      <!--/*@thymesVar id="cities" type="java.lang.Iterable"*/-->
+      <tr th:each="city: ${cities}">
+        <!--/*@thymesVar id="city" type="com.tv12.busstation.entities.City"*/-->
+        <td th:text="${city.getId()}"></td>
+        <form th:action="@{/admin/cities}" th:method="patch">
+          <input type="hidden" name="id" th:value="${city.getId()}">
+          <td><input name="name" th:value="${city.getName()}" class="form-control"></td>
+          <td><button type="submit" class="btn btn-primary table-button">Зберегти</button></td>
+        </form>
+        <td>
+          <form th:action="@{/admin/cities}" th:method="delete">
+            <input type="hidden" name="id" th:value="${city.getId()}">
+            <button type="submit" class="btn btn-primary table-button">Видалити</button>
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <form th:action="@{/admin/cities}" th:method="post">
+          <td><input class="form-control" name="name" placeholder="Введіть назву"></td>
+          <td><button type="submit" class="btn btn-primary table-button">Зберегти</button></td>
+        </form>
+      </tr>
+    </table>
+  </div>
+
+  <!-- MDB -->
+  <script type="text/javascript" src="/js/mdb.min.js"></script>
+</body>
+
+</html>

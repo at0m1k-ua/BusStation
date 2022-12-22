@@ -16,10 +16,10 @@ import javax.persistence.*;
 )
 public class City {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, columnDefinition = "BIG INT")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, columnDefinition = "INT")
+    private Integer id;
 
-    @Column(name = "name", updatable = false, columnDefinition = "TEXT")
+    @Column(name = "name", columnDefinition = "TEXT")
     private String name;
 }
