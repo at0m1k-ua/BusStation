@@ -5,6 +5,8 @@ import com.tv12.busstation.repositories.CitiesRepository;
 import com.tv12.busstation.services.CitiesService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CitiesServiceImpl implements CitiesService {
 
@@ -20,7 +22,7 @@ public class CitiesServiceImpl implements CitiesService {
     }
 
     @Override
-    public Iterable<City> readAll() {
+    public List<City> readAll() {
         return citiesRepository.findAllByOrderByNameAsc();
     }
 
