@@ -3,8 +3,10 @@ package com.tv12.busstation.controllers.admin;
 import com.tv12.busstation.models.admin.RoutesModel;
 import com.tv12.busstation.services.RoutesService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -27,5 +29,11 @@ public class RoutesController {
         RoutesModel model = new RoutesModel();
         model.setRoutes(routesService.readAll());
         return model;
+    }
+
+    @DeleteMapping("/admin/routes")
+    public String delete(@RequestParam int id) {
+        routesService.delete(id);
+        return "redirect:/admin/routes";
     }
 }

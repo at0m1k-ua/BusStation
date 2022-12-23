@@ -30,4 +30,9 @@ public class RoutesServiceImpl implements RoutesService {
         Route route = routesRepository.findById(routeId).get();
         return route.getStops();
     }
+
+    @Override
+    public void delete(int id) {
+        routesRepository.deleteById(id);
+    }
 }

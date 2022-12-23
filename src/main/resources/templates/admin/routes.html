@@ -46,7 +46,12 @@
                         <button type="submit" class="btn btn-primary table-button">Редагувати</button>
                     </form>
                 </td>
-                <td><button class="btn btn-primary table-button">Видалити</button></td>
+                <td>
+                    <form action="/admin/routes" th:method="delete">
+                        <input name="id" type="hidden" th:value="${route.getId()}">
+                        <button type="submit" class="btn btn-primary table-button">Видалити</button>
+                    </form>
+                </td>
             </tr>
             <tr>
                 <td></td>

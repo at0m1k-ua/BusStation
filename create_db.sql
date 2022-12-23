@@ -71,7 +71,7 @@ CREATE TABLE stops (
     price INT NOT NULL,
     CHECK(price >= 0),
     PRIMARY KEY (id, route_id),
-    FOREIGN KEY (route_id) REFERENCES routes(id),
+    FOREIGN KEY (route_id) REFERENCES routes(id) ON DELETE CASCADE,
     FOREIGN KEY (city_id) REFERENCES cities(id)
 );
 

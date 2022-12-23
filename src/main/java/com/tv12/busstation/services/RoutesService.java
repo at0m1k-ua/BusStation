@@ -7,4 +7,5 @@ public interface RoutesService {
     int create();
     Iterable<Route> readAll();
     Iterable<Stop> getRouteStops(int routeId);
+    void delete(int id);
 }
