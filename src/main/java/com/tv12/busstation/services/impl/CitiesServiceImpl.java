@@ -21,7 +21,7 @@ public class CitiesServiceImpl implements CitiesService {
 
     @Override
     public Iterable<City> readAll() {
-        return citiesRepository.findAll();
+        return citiesRepository.findAllByOrderByNameAsc();
     }
 
     @Override

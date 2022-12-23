@@ -1,5 +1,6 @@
 package com.tv12.busstation.models;
 
+import com.tv12.busstation.entities.City;
 import org.springframework.web.servlet.ModelAndView;
 
 public class MainModel extends ModelAndView {
@@ -8,8 +9,11 @@ public class MainModel extends ModelAndView {
         super("main");
     }
 
-    public MainModel addWrongCity(String wrongCity) {
+    public void addWrongCity(String wrongCity) {
         addObject("wrong_city", wrongCity);
-        return this;
+    }
+
+    public void setCities(Iterable<City> cities) {
+        addObject("cities", cities);
     }
 }

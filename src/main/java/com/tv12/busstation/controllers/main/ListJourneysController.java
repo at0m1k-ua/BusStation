@@ -21,16 +21,17 @@ public class ListJourneysController {
     @GetMapping("/listJourneys")
     public ModelAndView listJourneys(@RequestParam("from") String from,
                                      @RequestParam("to") String to,
-                                     @RequestParam("date") Date date,
-                                     @RequestParam("passengers") int passengers){
+                                     @RequestParam("date") Date date){
         MainModel mainModel = new MainModel();
 
         if (!citiesRepository.existsByName(from)) {
-            return mainModel.addWrongCity(from);
+            mainModel.addWrongCity(from);
+            return mainModel;
         }
 
         if (!citiesRepository.existsByName(to)) {
-            return mainModel.addWrongCity(to);
+            mainModel.addWrongCity(to);
+            return mainModel;
         }
 
         return mainModel;

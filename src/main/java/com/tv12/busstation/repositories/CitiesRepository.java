@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CitiesRepository extends JpaRepository<City, Integer> {
     boolean existsByName(String name);
+    Iterable<City> findAllByOrderByNameAsc();
 }
