@@ -1,6 +1,7 @@
 package com.tv12.busstation.entities;
 
 import org.hibernate.annotations.Immutable;
+import org.hibernate.annotations.Subselect;
 import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
 
 import javax.persistence.Column;
@@ -11,7 +12,7 @@ import java.sql.Date;
 
 @Entity
 @Immutable
-@Table(name = "journey_stops")
+@Subselect("select * from journey_stops")
 public class JourneyStops {
     @Id
     private Integer journeyId;
