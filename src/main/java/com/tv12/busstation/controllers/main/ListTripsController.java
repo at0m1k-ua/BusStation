@@ -12,14 +12,14 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.sql.Date;
 
 @Controller
-public class ListJourneysController {
+public class ListTripsController {
 
     private final static DateTimeFormatter formatter = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
             .appendPattern("M/d/yyyy")
             .toFormatter();
 
-    @GetMapping("/listJourneys")
+    @GetMapping("/listTrips")
     public ModelAndView listJourneys(@RequestParam String from,
                                      @RequestParam String to,
                                      @RequestParam("startDate") String startDateString) {

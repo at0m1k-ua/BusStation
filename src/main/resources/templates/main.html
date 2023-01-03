@@ -65,7 +65,7 @@
 			<div class="order">
 				<div class="order__container">
 					<div class="order__title">Оберіть свій маршрут</div>
-					<form class="order__form form" action="/listJourneys" method="get">
+					<form class="order__form form" action="/listTrips" method="get">
 						<div class="form__to-block">
 							<!--/*@thymesVar id="from" type="java.lang.String"*/-->
 							<input placeholder="Звідки" name="from" type="text" th:value="${from}" class="form__from form__input">
@@ -80,53 +80,13 @@
 					</form>
 				</div>
 			</div>
-			<!--/*@thymesVar id="journeys" type="java.util.List"*/-->
-			<div class="schedule" th:if="${journeys != null && !journeys.isEmpty()}">
+			<!--/*@thymesVar id="trips" type="java.util.List"*/-->
+			<div class="schedule" th:if="${trips != null && !trips.isEmpty()}">
 				<div class="schedule__container">
 					<div class="schedule__title">
 						Розклад автобусів Київ
 					</div>
 					<div class="schedule__list">
-						<a href="../static/ticket.html" class="schedule__route route">
-							<div class="route__top top-route">
-								<div class="top-route__departure">
-									<div class="top-route__time">06:40</div>
-									<div class="top-route__date">Ср, 2 Лис</div>
-									<div class="top-route__location">Київ</div>
-									<div class="top-route__point">Автовокзал "Центральний"</div>
-								</div>
-								<div class="top-route__arrival">
-									<div class="top-route__time">12:30</div>
-									<div class="top-route__date">Ср, 2 Лис</div>
-									<div class="top-route__location">Одеса</div>
-									<div class="top-route__point">Зупинка біля центрального вокзалу</div>
-								</div>
-								<div class="top-route__actions">
-									<div class="top-route__price">500грн</div>
-									<div class="top-route__btn">Обрати</div>
-								</div>
-							</div>
-						</a>
-						<div class="schedule__route route">
-							<div class="route__top top-route">
-								<div class="top-route__departure">
-									<div class="top-route__time">06:40</div>
-									<div class="top-route__date">Ср, 2 Лис</div>
-									<div class="top-route__location">Київ</div>
-									<div class="top-route__point">Автовокзал "Центральний"</div>
-								</div>
-								<div class="top-route__arrival">
-									<div class="top-route__time">12:30</div>
-									<div class="top-route__date">Ср, 2 Лис</div>
-									<div class="top-route__location">Одеса</div>
-									<div class="top-route__point">Зупинка біля центрального вокзалу</div>
-								</div>
-								<div class="top-route__actions">
-									<div class="top-route__price">500грн</div>
-									<div class="top-route__btn">Обрати</div>
-								</div>
-							</div>
-						</div>
 						<div class="schedule__route route">
 							<div class="route__top top-route">
 								<div class="top-route__departure">

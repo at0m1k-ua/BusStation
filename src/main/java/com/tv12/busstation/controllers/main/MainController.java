@@ -1,6 +1,6 @@
 package com.tv12.busstation.controllers.main;
 
-import com.tv12.busstation.entities.projections.SourceJourneyStopProjection;
+import com.tv12.busstation.entities.JourneyStop;
 import com.tv12.busstation.models.MainModel;
 import com.tv12.busstation.repositories.JourneyStopsRepository;
 import com.tv12.busstation.services.CitiesService;
@@ -28,13 +28,23 @@ public class MainController {
         MainModel model = new MainModel();
         model.setCities(citiesService.readAll());
 
-        List<SourceJourneyStopProjection> journeyStops = journeyStopsRepository.getSourceJourneyStops("Миколаїв", "2023-03-02", "Житомир");
+        List<JourneyStop> fromStops = journeyStopsRepository.getFromJourneyStops("Миколаїв", "2023-03-02", "Житомир");
 
-        for (var entry : journeyStops) {
+        for (var entry : fromStops) {
             System.out.println(entry.getCityName() + " " +
-                               entry.getJourneyId() + " " +
-                               entry.getStopId() + " " +
+                               entry.getId().getJourney().getId() + " " +
+                               entry.getId().getStop().getId() + " " +
                                entry.getTimestamp());
+            JourneyStop toStop = journeyStopsRepository.getToJourneyStop(
+                    entry.getId().getJourney().getId(),
+                    "Київ",
+                    entry.getTimestamp()
+            );
+            System.out.println(toStop.getCityName() + " " +
+                               toStop.getId().getJourney().getId() + " " +
+                               toStop.getId().getStop().getId() + " " +
+                               toStop.getTimestamp());
+            System.out.println();
         }
 
         return model;

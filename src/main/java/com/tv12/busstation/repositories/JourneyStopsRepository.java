@@ -1,24 +1,20 @@
 package com.tv12.busstation.repositories;
 
-import com.tv12.busstation.entities.projections.SourceJourneyStopProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import com.tv12.busstation.entities.JourneyStop;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface JourneyStopsRepository extends JpaRepository<JourneyStop, Integer> {
     @Query(value = """
-                   SELECT
-                        journey_id,
-                        stop_id,
-                        city_name,
-                        timestamp
+                   SELECT *
                     FROM
                         journey_stops AS stops_from
                     WHERE
-                        city_name = ? AND
-                        DATE(timestamp) = ? AND
+                        city_name = ?1 AND
+                        DATE(timestamp) = ?3 AND
                         EXISTS(
                             SELECT
                                 journey_id,
@@ -28,9 +24,21 @@ public interface JourneyStopsRepository extends JpaRepository<JourneyStop, Integ
                                 journey_stops AS stops_to
                             WHERE
                                 stops_from.journey_id = stops_to.journey_id AND
-                                stops_to.city_name = ? AND
+                                stops_to.city_name = ?2 AND
                                 stops_from.timestamp < stops_to.timestamp
                         );
                    """, nativeQuery = true)
-    List<SourceJourneyStopProjection> getSourceJourneyStops(String from, String date, String to);
+    List<JourneyStop> getFromJourneyStops(String from, String to, String date);
+
+    @Query(value = """
+                   SELECT *
+                    FROM
+                        journey_stops
+                    WHERE
+                        journey_id = ? AND
+                        city_name = ? AND
+                        timestamp > ?
+                    LIMIT 1;
+                   """, nativeQuery = true)
+    JourneyStop getToJourneyStop(Integer journeyId, String cityName, Timestamp timestamp);
 }
