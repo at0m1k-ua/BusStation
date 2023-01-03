@@ -88,3 +88,14 @@ CREATE TABLE tickets (
     FOREIGN KEY (passenger_id) REFERENCES passengers(id),
     FOREIGN KEY (journey_id) REFERENCES journeys(id)
 );
+
+CREATE VIEW journey_stops AS
+SELECT
+    journeys.id AS journey_id,
+    cities.name AS city_name,
+    TIMESTAMP(start_date + INTERVAL day_shift DAY, time) AS timestamp
+FROM journeys
+         JOIN routes ON journeys.route_id = routes.id
+         JOIN stops ON routes.id = stops.route_id
+         JOIN cities ON city_id = cities.id
+ORDER BY journey_id, timestamp;
