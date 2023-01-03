@@ -172,6 +172,12 @@ body {
   cursor: pointer;
 }
 
+.header__help-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .header__help:hover {
   text-decoration: underline;
 }
