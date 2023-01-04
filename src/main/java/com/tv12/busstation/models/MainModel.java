@@ -1,6 +1,7 @@
 package com.tv12.busstation.models;
 
-import com.tv12.busstation.entities.City;
+import com.tv12.busstation.domain.Trip;
+import com.tv12.busstation.domain.ui.UiTrip;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
@@ -26,11 +27,7 @@ public class MainModel extends ModelAndView {
         addObject("startDate", dateFormat.format(startDate));
     }
 
-    public void addWrongCity(String wrongCity) {
-        addObject("wrong_city", wrongCity);
-    }
-
-    public void setCities(Iterable<City> cities) {
-        addObject("cities", cities);
+    public void setTrips(Iterable<UiTrip> trips) {
+        addObject("trips", trips);
     }
 }

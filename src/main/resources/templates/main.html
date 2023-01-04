@@ -62,17 +62,17 @@
 			</div>
 		</header>
 		<main class="page">
+			<!--/*@thymesVar id="from" type="java.lang.String"*/-->
+			<!--/*@thymesVar id="to" type="java.lang.String"*/-->
 			<div class="order">
 				<div class="order__container">
 					<div class="order__title">Оберіть свій маршрут</div>
 					<form class="order__form form" action="/listTrips" method="get">
 						<div class="form__to-block">
-							<!--/*@thymesVar id="from" type="java.lang.String"*/-->
 							<input placeholder="Звідки" name="from" type="text" th:value="${from}" class="form__from form__input">
 							<!--/*@thymesVar id="wrong_city" type="String"*/-->
 							<span class="city-error" th:if="${wrong_city != null}">Місто <span th:text="${wrong_city}"></span> не знайдено</span>
 						</div>
-						<!--/*@thymesVar id="to" type="java.lang.String"*/-->
 						<input placeholder="Куди" name="to" type="text" th:value="${to}" class="form__to form__input">
 						<!--/*@thymesVar id="startDate" type="java.sql.Date"*/-->
 						<input name="startDate" type="text" th:value="${startDate}" class="form__date form__input" placeholder="Оберіть дату">
@@ -84,26 +84,27 @@
 			<div class="schedule" th:if="${trips != null && !trips.isEmpty()}">
 				<div class="schedule__container">
 					<div class="schedule__title">
-						Розклад автобусів Київ
+						Розклад автобусів <span th:text="${from}"></span> - <span th:text="${to}"></span>
 					</div>
-					<div class="schedule__list">
+					<div class="schedule__list" th:each="trip: ${trips}">
+						<!--/*@thymesVar id="trip" type="com.tv12.busstation.domain.ui.UiTrip"*/-->
 						<div class="schedule__route route">
 							<div class="route__top top-route">
 								<div class="top-route__departure">
-									<div class="top-route__time">06:40</div>
-									<div class="top-route__date">Ср, 2 Лис</div>
-									<div class="top-route__location">Київ</div>
-									<div class="top-route__point">Автовокзал "Центральний"</div>
+									<div class="top-route__time" th:text="${trip.getTimeFrom()}"></div>
+									<div class="top-route__date" th:text="${trip.getDateFrom()}"></div>
+									<div class="top-route__location" th:text="${trip.getCityFrom()}"></div>
 								</div>
 								<div class="top-route__arrival">
-									<div class="top-route__time">12:30</div>
-									<div class="top-route__date">Ср, 2 Лис</div>
-									<div class="top-route__location">Одеса</div>
-									<div class="top-route__point">Зупинка біля центрального вокзалу</div>
+									<div class="top-route__time" th:text="${trip.getTimeTo()}"></div>
+									<div class="top-route__date" th:text="${trip.getDateTo()}"></div>
+									<div class="top-route__location" th:text="${trip.getCityTo()}"></div>
 								</div>
 								<div class="top-route__actions">
-									<div class="top-route__price">500грн</div>
-									<div class="top-route__btn">Обрати</div>
+									<div class="top-route__price" th:text="${trip.getPrice() + ' грн'}"></div>
+									<form action="/ticket" method="GET">
+										<button type="submit"><div class="top-route__btn">Обрати</div></button>
+									</form>
 								</div>
 							</div>
 						</div>

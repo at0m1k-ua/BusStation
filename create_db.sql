@@ -2,16 +2,6 @@ DROP DATABASE IF EXISTS bus_station;
 CREATE DATABASE bus_station;
 USE bus_station;
 
-CREATE TABLE passengers (
-    id INT NOT NULL AUTO_INCREMENT,
-    surname varchar(64) NOT NULL,
-    name varchar(64) NOT NULL,
-    patronymic varchar(64) NOT NULL,
-    phone varchar(16) NOT NULL,
-    email varchar(64) NOT NULL,
-    PRIMARY KEY (id)
-);
-
 CREATE TABLE drivers (
     id INT NOT NULL AUTO_INCREMENT,
     surname varchar(64) NOT NULL,
@@ -76,16 +66,20 @@ CREATE TABLE stops (
 );
 
 CREATE TABLE tickets (
-    id INT NOT NULL,
-    passenger_id INT NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
+    surname varchar(64) NOT NULL,
+    name varchar(64) NOT NULL,
+    phone varchar(16) NOT NULL,
+    email varchar(64) NOT NULL,
     journey_id INT NOT NULL,
     seat_number INT NOT NULL,
     stop_number_from INT NOT NULL,
     CHECK(stop_number_from > 0),
     stop_number_to INT NOT NULL,
+    price INT NOT NULL,
+    CHECK(price > 0),
     CHECK(stop_number_to > 0),
     PRIMARY KEY (id),
-    FOREIGN KEY (passenger_id) REFERENCES passengers(id),
     FOREIGN KEY (journey_id) REFERENCES journeys(id)
 );
 

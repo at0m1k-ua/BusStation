@@ -41,4 +41,15 @@ public interface JourneyStopsRepository extends JpaRepository<JourneyStop, Integ
                     LIMIT 1;
                    """, nativeQuery = true)
     JourneyStop getToJourneyStop(Integer journeyId, String cityName, Timestamp timestamp);
+
+    @Query(value = """
+                   SELECT sum(price) AS price
+                    FROM journey_stops
+                    WHERE
+                        journey_id = ? AND
+                        timestamp > ? AND
+                        timestamp <= ?
+                    GROUP BY journey_id
+                   """, nativeQuery = true)
+    int getPrice(Integer journeyId, Timestamp from, Timestamp to);
 }

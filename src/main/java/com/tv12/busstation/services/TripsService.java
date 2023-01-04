@@ -1,6 +1,6 @@
 package com.tv12.busstation.services;
 
-import com.tv12.busstation.Trip;
+import com.tv12.busstation.domain.Trip;
 
 import java.sql.Date;
 import java.util.List;

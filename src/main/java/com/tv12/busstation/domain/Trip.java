@@ -1,4 +1,4 @@
-package com.tv12.busstation;
+package com.tv12.busstation.domain;
 
 import com.tv12.busstation.entities.Journey;
 import com.tv12.busstation.entities.Stop;
@@ -17,4 +17,5 @@ public class Trip {
     private Timestamp timestampFrom;
     private Stop stopTo;
     private Timestamp timestampTo;
+    private int price;
 }
