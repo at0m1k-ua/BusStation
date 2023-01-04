@@ -61,5 +61,6 @@ public class TicketsServiceImpl implements TicketsService {
         ticket.setTo(stopTo);
         ticket.setPrice(price);
 
+        ticketsRepository.saveAndFlush(ticket);
     }
 }

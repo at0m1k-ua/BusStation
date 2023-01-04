@@ -76,6 +76,7 @@
                 </form>
                 <td>
                     <form action="/admin/tickets" method="GET">
+                        <input type="hidden" name="journeyId" th:value="${journey.getId()}">
                         <button class="btn btn-primary table-button">Квитки</button>
                     </form>
                 </td>

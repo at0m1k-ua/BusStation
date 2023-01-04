@@ -45,6 +45,11 @@ public class JourneysServiceImpl implements JourneysService {
     }
 
     @Override
+    public Journey readById(int id) {
+        return journeysRepository.findById(id).get();
+    }
+
+    @Override
     public void update(int id, int routeId, int busId, int driverId, Date startDate) {
         Journey journey = journeysRepository.findById(id).get();
         journey.setRoute(routesRepository.findById(routeId).get());

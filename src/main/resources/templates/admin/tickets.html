@@ -39,31 +39,75 @@
       <th><h4>Куди</h4></th>
       <th><h4>Ціна</h4></th>
     </tr>
-    <tr>
-      <td>0</td>
-      <td><input class="form-control"></td>
-      <td><input class="form-control"></td>
-      <td><input class="form-control"></td>
-      <td><input class="form-control"></td>
-      <td><input class="form-control" type="number"></td>
+    <!--/*@thymesVar id="tickets" type="java.lang.Iterable"*/-->
+    <!--/*@thymesVar id="ticket" type="com.tv12.busstation.entities.Ticket"*/-->
+    <!--/*@thymesVar id="journey" type="com.tv12.busstation.entities.Journey"*/-->
+    <tr th:each="ticket: ${tickets}">
+      <td th:text="${ticket.getId()}"></td>
+      <form action="/admin/tickets" th:method="patch">
+        <input name="id" type="hidden" th:value="${ticket.getId()}">
+        <input name="journeyId" type="hidden" th:value="${ticket.getJourney().getId()}">
+        <td><input class="form-control" name="surname" th:value="${ticket.getSurname()}"></td>
+        <td><input class="form-control" name="name" th:value="${ticket.getName()}"></td>
+        <td><input class="form-control" name="phone" th:value="${ticket.getPhone()}"></td>
+        <td><input class="form-control" name="email" th:value="${ticket.getEmail()}"></td>
+        <td><input class="form-control" type="number" name="seatNumber" th:value="${ticket.getSeatNumber()}"></td>
+        <td>
+          <select class="form-select" name="stopNumberFrom">
+            <option th:each="stop: ${journey.getRoute().getStops()}"
+                    th:value="${stop.getId()}"
+                    th:text="${stop.getCity().getName()}"
+                    th:selected="${stop.getId() == ticket.getFrom().getId()}"></option>
+          </select>
+        </td>
+        <td>
+          <select class="form-select" name="stopNumberTo">
+            <option th:each="stop: ${journey.getRoute().getStops()}"
+                    th:value="${stop.getId()}"
+                    th:text="${stop.getCity().getName()}"
+                    th:selected="${stop.getId() == ticket.getTo().getId()}"></option>
+          </select>
+        </td>
+        <td><input class="form-control" type="number" name="price" th:value="${ticket.getPrice()}"></td>
+        <td><button type="submit" class="btn btn-primary">Зберегти</button></td>
+      </form>
       <td>
-        <select class="form-select">
-          <option>1</option>
-          <option>1</option>
-          <option>1</option>
-        </select>
+        <form action="admin/tickets" th:method="delete">
+          <input name="id" type="hidden" th:value="${ticket.getId()}">
+          <input name="journeyId" type="hidden" th:value="${ticket.getJourney().getId()}">
+          <button type="submit" class="btn btn-primary">Видалити</button>
+        </form>
       </td>
-      <td>
-        <select class="form-select">
-          <option>1</option>
-          <option>1</option>
-          <option>1</option>
-        </select>
-      </td>
-      <td><input class="form-control" type="number"></td>
-      <td><button type="submit" class="btn btn-primary">Зберегти</button></td>
-      <td><button type="submit" class="btn btn-primary">Видалити</button></td>
     </tr>
+    <tr>
+      <td></td>
+      <form action="/admin/tickets" th:method="post">
+        <input type="hidden" name="journeyId" th:value="${journey.getId()}">
+        <td><input class="form-control" name="surname"></td>
+        <td><input class="form-control" name="name"></td>
+        <td><input class="form-control" name="phone"></td>
+        <td><input class="form-control" name="email"></td>
+        <td><input class="form-control" type="number" name="seatNumber"></td>
+        <td>
+          <select class="form-select" name="stopNumberFrom">
+            <option value="0" selected disabled>(не обрано)</option>
+            <option th:each="stop: ${journey.getRoute().getStops()}"
+                    th:value="${stop.getId()}"
+                    th:text="${stop.getCity().getName()}"></option>
+          </select>
+        </td>
+        <td>
+          <select class="form-select" name="stopNumberTo">
+            <option value="0" selected disabled>(не обрано)</option>
+            <option th:each="stop: ${journey.getRoute().getStops()}"
+                    th:value="${stop.getId()}"
+                    th:text="${stop.getCity().getName()}"></option>
+          </select>
+        </td>
+        <td><input class="form-control" type="number" name="price"></td>
+        <td><button type="submit" class="btn btn-primary">Зберегти</button></td>
+      </form>
+    <tr>
   </table>
 </div>
 
