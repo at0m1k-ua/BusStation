@@ -14,13 +14,13 @@ public record UiTrip(Integer journeyId,
                      String timeTo,
                      int price) {
     private static final List<String> daysOfWeek = List.of(
+            "Неділя",
             "Понеділок",
             "Вівторок",
             "Середа",
             "Четвер",
             "П'ятниця",
-            "Субота",
-            "Неділя"
+            "Субота"
     );
     private static final List<String> monthOfYear = List.of(
             "січня",

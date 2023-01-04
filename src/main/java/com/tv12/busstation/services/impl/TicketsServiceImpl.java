@@ -41,7 +41,7 @@ public class TicketsServiceImpl implements TicketsService {
 
     @Override
     public Iterable<Ticket> getByJourneyId(int journeyId) {
-        return null;
+        return ticketsRepository.findAllByJourneyId(journeyId);
     }
 
     private void save(Integer id, String surname, String name, String phone, String email,

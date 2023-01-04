@@ -43,4 +43,7 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "stop_number_to", nullable = false, columnDefinition = "INT")
     private Stop to;
+
+    @Column(name = "price", nullable = false, columnDefinition = "INT")
+    private int price;
 }

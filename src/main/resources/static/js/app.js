@@ -3974,11 +3974,7 @@
       };
     if ("undefined" !== typeof window) window.flatpickr = flatpickr;
     var datepicker_min = __webpack_require__(448);
-    //!HEADER
-    const supportLink = document.querySelector(".header__help");
-    supportLink.addEventListener("click", () => {
-      supportLink.classList.toggle("active");
-    });
+
     //let list = ["Київ", "Луцьк", "Одеса", "Ужгород", "Львів"];
     const inputFrom = document.querySelector(".form__from");
     const inputTo = document.querySelector(".form__to");

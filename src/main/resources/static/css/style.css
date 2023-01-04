@@ -89,13 +89,13 @@ body {
 
 .wrapper {
   min-height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  /*display: -webkit-box;*/
+  /*display: -ms-flexbox;*/
+  /*display: flex;*/
+  /*-webkit-box-orient: vertical;*/
+  /*-webkit-box-direction: normal;*/
+  /*    -ms-flex-direction: column;*/
+  /*        flex-direction: column;*/
   overflow: hidden;
 }
 
@@ -144,13 +144,23 @@ body {
 }
 
 .header {
-  background-color: #E5E5E5;
+  /*background-color: ;*/
+}
+
+.wrapper__bg {
+  min-height: 100vh;
+  background-image: url("../img/bg.jpg");
+  display: flex;
+  /*align-items: center;*/
+  padding-top: 250px;
+  justify-content: center;
 }
 
 .header__container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  padding: 0px 40px;
   min-height: 80px;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -217,59 +227,9 @@ body {
   color: #FFFFFF;
 }
 
-/*
-.icon-menu {
-	display: none;
-	@media (max-width: $mobile) {
-		display: block;
-		position: relative;
-		width: rem(30);
-		height: rem(18);
-		cursor: pointer;
-		z-index: 5;
-		span,
-		&::before,
-		&::after {
-			content: "";
-			transition: all 0.3s ease 0s;
-			right: 0;
-			position: absolute;
-			width: 100%;
-			height: rem(2);
-			background-color: #000;
-		}
-		&::before {
-			top: 0;
-		}
-		&::after {
-			bottom: 0;
-		}
-		span {
-			top: calc(50% - rem(1));
-		}
-		.menu-open & {
-			span {
-				width: 0;
-			}
-			&::before,
-			&::after {
-			}
-			&::before {
-				top: calc(50% - rem(1));
-				transform: rotate(-45deg);
-			}
-			&::after {
-				bottom: calc(50% - rem(1));
-				transform: rotate(45deg);
-			}
-		}
-	}
-}
-*/
-
 .footer {
   padding: 30px;
-  background: #4B5563;
+  background: rgba(35, 34, 34, 0.914);
   color: #fff;
 }
 
@@ -661,8 +621,8 @@ body {
 }
 
 .order {
-  padding: 100px 0px;
-  background: #1e212c;
+  /*padding: 100px 0px;*/
+  /*background: #1e212c;*/
 }
 
 .order__title {
@@ -729,7 +689,8 @@ body {
 
 .schedule {
   background-color: rgba(216, 71, 39, 0.1);
-  padding: 100px 0px;
+  padding-top: 70px;
+  padding-bottom: 90px;
 }
 
 .schedule__container {
