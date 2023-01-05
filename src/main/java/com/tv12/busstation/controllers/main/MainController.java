@@ -10,10 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class MainController {
     @GetMapping("/")
     public ModelAndView main() {
-
-        EmailSenderImpl emailSender = new EmailSenderImpl();
-        emailSender.sendHtml("I want to break free", "kuruch2004@gmail.com");
-
         return new MainModel();
     }
 }
