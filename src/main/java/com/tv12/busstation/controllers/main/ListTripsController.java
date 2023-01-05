@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.sql.Date;
+import java.time.format.DateTimeParseException;
 
 @Controller
 public class ListTripsController {
@@ -31,19 +32,22 @@ public class ListTripsController {
     public ModelAndView listJourneys(@RequestParam String from,
                                      @RequestParam String to,
                                      @RequestParam("startDate") String startDateString) {
-        Date startDate = Date.valueOf(LocalDate.parse(startDateString, formatter));
-
         MainModel mainModel = new MainModel();
-        mainModel.setFrom(from);
-        mainModel.setTo(to);
-        mainModel.setStartDate(startDate);
-        mainModel.setTrips(
-                tripsService.getTrips(from, to, startDate)
-                        .stream()
-                        .map(trip -> UiTrip.of(trip, tripsService.getPrice(trip)))
-                        .toList()
-        );
 
+        try {
+            Date startDate = Date.valueOf(LocalDate.parse(startDateString, formatter));
+            mainModel.setFrom(from);
+            mainModel.setTo(to);
+            mainModel.setStartDate(startDate);
+            mainModel.setTrips(
+                    tripsService.getTrips(from, to, startDate)
+                            .stream()
+                            .map(trip -> UiTrip.of(trip, tripsService.getPrice(trip)))
+                            .toList());
+
+        } catch (DateTimeParseException e) {
+
+        }
         return mainModel;
     }
 }

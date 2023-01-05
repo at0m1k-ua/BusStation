@@ -3975,18 +3975,6 @@
     if ("undefined" !== typeof window) window.flatpickr = flatpickr;
     var datepicker_min = __webpack_require__(448);
 
-    var checker = document.getElementById('checkme');
-    var sendbtn = document.getElementById('sendNewSms');
-    // when unchecked or checked, run the function
-    checker.onchange = function(){
-      if(this.checked){
-        sendbtn.disabled = false;
-      } else {
-        sendbtn.disabled = true;
-      }
-
-    }
-
     const inputFrom = document.querySelector(".form__from");
     const inputTo = document.querySelector(".form__to");
     const date = document.querySelector(".form__date");

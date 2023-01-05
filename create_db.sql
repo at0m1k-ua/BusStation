@@ -81,7 +81,9 @@ CREATE TABLE tickets (
     CHECK(price > 0),
     CHECK(stop_number_to > 0),
     PRIMARY KEY (id),
-    FOREIGN KEY (journey_id) REFERENCES journeys(id)
+    FOREIGN KEY (journey_id) REFERENCES journeys(id),
+    FOREIGN KEY (stop_number_from) REFERENCES stops(id),
+    FOREIGN KEY (stop_number_to) REFERENCES stops(id)
 );
 
 CREATE VIEW journey_stops AS
