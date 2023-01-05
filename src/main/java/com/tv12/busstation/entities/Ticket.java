@@ -3,6 +3,7 @@ package com.tv12.busstation.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -46,4 +47,7 @@ public class Ticket {
 
     @Column(name = "price", nullable = false, columnDefinition = "INT")
     private int price;
+
+    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP")
+    private Timestamp createdAt;
 }

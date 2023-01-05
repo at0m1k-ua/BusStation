@@ -9,6 +9,10 @@ import com.tv12.busstation.services.PendingTicketStorage;
 import com.tv12.busstation.services.TicketsService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+
 @Service
 public class TicketsServiceImpl implements TicketsService {
     private final JourneysRepository journeysRepository;
@@ -93,6 +97,7 @@ public class TicketsServiceImpl implements TicketsService {
         ticket.setFrom(stopFrom);
         ticket.setTo(stopTo);
         ticket.setPrice(price);
+        ticket.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 
         ticketsRepository.saveAndFlush(ticket);
     }
