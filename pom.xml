@@ -69,12 +69,6 @@
 			<artifactId>javax.mail</artifactId>
 			<version>1.6.2</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.ironsoftware</groupId>
-			<artifactId>ironpdf</artifactId>
-			<version>2022.12.0</version>
-		</dependency>
 	</dependencies>
 
 	<build>
