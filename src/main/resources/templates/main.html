@@ -27,13 +27,13 @@
 					<div class="order__title">Оберіть свій маршрут</div>
 					<form class="order__form form" action="/listTrips" method="get">
 						<div class="form__to-block">
-							<input placeholder="Звідки" name="from" type="text" th:value="${from}" class="form__from form__input">
+							<input required placeholder="Звідки" name="from" type="text" th:value="${from}" class="form__from form__input">
 							<!--/*@thymesVar id="wrong_city" type="String"*/-->
 							<span class="city-error" th:if="${wrong_city != null}">Місто <span th:text="${wrong_city}"></span> не знайдено</span>
 						</div>
-						<input placeholder="Куди" name="to" type="text" th:value="${to}" class="form__to form__input">
+						<input required placeholder="Куди" name="to" type="text" th:value="${to}" class="form__to form__input">
 						<!--/*@thymesVar id="startDate" type="java.sql.Date"*/-->
-						<input name="startDate" type="text" th:value="${startDate}" class="form__date form__input" placeholder="Оберіть дату">
+						<input required name="startDate" type="text" th:value="${startDate}" class="form__date form__input" placeholder="Оберіть дату">
 						<button class="form__button" type="submit">Знайти квитки</button>
 					</form>
 				</div>

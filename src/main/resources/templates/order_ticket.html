@@ -68,19 +68,19 @@
 						<h2 class="ticket-setting__title">Оформлення квитка</h2>
 							<div class="ticket-setting__form-block">
 								<label class="ticket-setting__label">Ім'я</label>
-								<input type="text" class="ticket-setting__input" name="name" placeholder="Іван">
-								<label class="ticket-setting__label">Номер місця</label>
-								<select class="ticket-setting__input" name="seatNumber">
-									<option selected disabled>(не обрано)</option>
-									<!--/*@thymesVar id="availableSeats" type="java.util.List"*/-->
-									<!--/*@thymesVar id="seat" type="java.lang.Integer"*/-->
-									<option th:each="seat: ${availableSeats}" th:value="${seat}" th:text="${seat}"></option>
-								</select>
+								<input required type="text" class="ticket-setting__input" name="name" placeholder="Іван">
 							</div>
 							<div class="ticket-setting__form-block">
 								<label class="ticket-setting__label">Прізвище</label>
-								<input type="text" class="ticket-setting__input" name="surname" placeholder="Іванов">
+								<input required type="text" class="ticket-setting__input" name="surname" placeholder="Іванов">
 							</div>
+						<label class="ticket-setting__label">Номер місця</label>
+						<select required class="ticket-setting__input" name="seatNumber">
+							<option>(не обрано)</option>
+							<!--/*@thymesVar id="availableSeats" type="java.util.List"*/-->
+							<!--/*@thymesVar id="seat" type="java.lang.Integer"*/-->
+							<option th:each="seat: ${availableSeats}" th:value="${seat}" th:text="${seat}"></option>
+						</select>
 					</div>
 				</div>
 				<div class="ticket-page__block ticket-setting">
@@ -88,11 +88,11 @@
 						<h2 class="ticket-setting__title">Інформація про покупця</h2>
 						<div class="ticket-setting__form-block">
 							<label class="ticket-setting__label">E-mail</label>
-							<input type="text" name="email" class="ticket-setting__input" placeholder="ivan@gmail.com">
+							<input required type="text" name="email" class="ticket-setting__input" placeholder="ivan@gmail.com">
 						</div>
 						<div class="ticket-setting__form-block">
 							<label class="ticket-setting__label">Телефон</label>
-							<input type="text" name="phone" class="ticket-setting__input" placeholder="+38__ ___ __">
+							<input required type="text" name="phone" class="ticket-setting__input" placeholder="+38__ ___ __">
 						</div>
 					</div>
 				</div>
