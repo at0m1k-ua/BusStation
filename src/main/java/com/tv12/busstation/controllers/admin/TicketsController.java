@@ -77,7 +77,7 @@ public class TicketsController {
         return "redirect:/admin/tickets?journeyId=" + journeyId;
     }
 
-    @DeleteMapping("/admin/ticket")
+    @DeleteMapping("/admin/tickets")
     public String delete(@RequestParam int id,
                          @RequestParam int journeyId) {
         ticketsService.delete(id);

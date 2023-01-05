@@ -62,7 +62,10 @@
 						</div>
 						<div class="top-route__actions">
 							<div class="top-route__price" th:text="${trip.price() + ' грн'}"></div>
-							<form action="/ticket" method="GET">
+							<form action="/orderTicket" method="POST">
+								<input type="hidden" name="journeyId" th:value="${trip.journeyId()}">
+								<input type="hidden" name="stopIdFrom" th:value="${trip.stopIdFrom()}">
+								<input type="hidden" name="stopIdTo" th:value="${trip.stopIdTo()}">
 								<button type="submit"><div class="top-route__btn">Обрати</div></button>
 							</form>
 						</div>

@@ -1,0 +1,72 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+<div style="text-align: center">
+    <p><b>ЕЛЕКТРОННИЙ КВИТОК</b></p>
+    <p>Даний квиток дійсний для проїзду.</p>
+    <p>Надайте його обслуговуючому персоналу при посадці в транспортний засіб.</p>
+    <p>Номер квитка: <b th:text="${ticketId}"></b></p>
+    <table>
+        <tr>
+            <td colspan="2"><b>Пасажир: <span th:text="${passengerFullName}"></span></b></td>
+            <td rowspan="6">Разом до сплати: <span th:text="${price}"></span> грн</td>
+        </tr>
+        <tr>
+            <td>Місто відправлення</td>
+            <td th:text="${fromCityName}"></td>
+        </tr>
+        <tr>
+            <td>Місто призначення</td>
+            <td th:text="${toCityName}"></td>
+        </tr>
+        <tr>
+            <td>Час відправлення</td>
+            <td th:text="${fromTimestamp}"></td>
+        </tr>
+        <tr>
+            <td>Час прибуття</td>
+            <td th:text="${toTimestamp}"></td>
+        </tr>
+        <tr>
+            <td>Номер місця</td>
+            <td th:text="${seatNumber}"></td>
+        </tr>
+    </table>
+    <br>
+    <table>
+        <tr>
+            <td>ПІБ перевізника</td>
+            <td th:text="${driverFullName}"></td>
+        </tr>
+        <tr>
+            <td>ID</td>
+            <td th:text="${driverId}"></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;"><b>КОНТАКТИ ПЕРЕВІЗНИКА</b></td>
+        </tr>
+        <tr>
+            <td>Телефон</td>
+            <td th:text="${driverPhone}"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td th:text="${driverEmail}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

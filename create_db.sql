@@ -69,7 +69,7 @@ CREATE TABLE tickets (
     id INT NOT NULL AUTO_INCREMENT,
     surname varchar(64) NOT NULL,
     name varchar(64) NOT NULL,
-    phone varchar(16) NOT NULL,
+    phone varchar(32) NOT NULL,
     email varchar(64) NOT NULL,
     journey_id INT NOT NULL,
     seat_number INT NOT NULL,
@@ -77,6 +77,7 @@ CREATE TABLE tickets (
     CHECK(stop_number_from > 0),
     stop_number_to INT NOT NULL,
     price INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT now(),
     CHECK(price > 0),
     CHECK(stop_number_to > 0),
     PRIMARY KEY (id),
@@ -86,10 +87,60 @@ CREATE TABLE tickets (
 CREATE VIEW journey_stops AS
 SELECT
     journeys.id AS journey_id,
+    stops.id AS stop_id,
+    stops.price AS price,
     cities.name AS city_name,
     TIMESTAMP(start_date + INTERVAL day_shift DAY, time) AS timestamp
 FROM journeys
-         JOIN routes ON journeys.route_id = routes.id
-         JOIN stops ON routes.id = stops.route_id
-         JOIN cities ON city_id = cities.id
+    JOIN routes ON journeys.route_id = routes.id
+    JOIN stops ON routes.id = stops.route_id
+    JOIN cities ON city_id = cities.id
 ORDER BY journey_id, timestamp;
+
+CREATE VIEW trips AS
+SELECT * FROM (
+    SELECT
+        journey_stops_from.journey_id AS journey_id,
+        from_stop_id,
+        to_stop_id,
+        from_city_name,
+        to_city_name,
+        from_timestamp,
+        to_timestamp
+    FROM (
+        SELECT
+            journey_id,
+            stop_id as from_stop_id,
+            city_name AS from_city_name,
+            timestamp AS from_timestamp
+        FROM
+            journey_stops
+    ) AS journey_stops_from JOIN (
+        SELECT
+            journey_id,
+            stop_id AS to_stop_id,
+            city_name AS to_city_name,
+            timestamp AS to_timestamp
+        FROM
+            journey_stops
+    )
+    AS journey_stops_to
+    ON journey_stops_from.journey_id = journey_stops_to.journey_id
+) AS unfiltered WHERE from_timestamp < to_timestamp;
+
+CREATE VIEW journey_seats AS
+SELECT
+    tickets.id AS ticket_id,
+    journey_stops_from.journey_id,
+    journey_stops_from.timestamp AS timestamp_from,
+    journey_stops_to.timestamp AS timestamp_to,
+    seat_number
+FROM tickets
+   JOIN journey_stops
+   AS journey_stops_from
+   ON tickets.journey_id = journey_stops_from.journey_id AND
+      tickets.stop_number_from = journey_stops_from.stop_id
+   JOIN journey_stops
+   AS journey_stops_to
+   ON tickets.journey_id = journey_stops_from.journey_id AND
+      tickets.stop_number_to = journey_stops_to.stop_id;

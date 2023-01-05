@@ -1,8 +1,8 @@
 package com.tv12.busstation.controllers.main;
 
-import com.tv12.busstation.domain.ui.UiTrip;
 import com.tv12.busstation.models.MainModel;
 import com.tv12.busstation.services.TripsService;
+import com.tv12.busstation.ui.UiTrip;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,7 +40,7 @@ public class ListTripsController {
         mainModel.setTrips(
                 tripsService.getTrips(from, to, startDate)
                         .stream()
-                        .map((UiTrip::new))
+                        .map(trip -> UiTrip.of(trip, tripsService.getPrice(trip)))
                         .toList()
         );
 

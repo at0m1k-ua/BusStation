@@ -1,27 +1,60 @@
 package com.tv12.busstation.services.impl;
 
-import com.tv12.busstation.entities.Journey;
-import com.tv12.busstation.entities.Stop;
-import com.tv12.busstation.entities.Ticket;
+import com.tv12.busstation.entities.*;
+import com.tv12.busstation.repositories.JourneyStopsRepository;
 import com.tv12.busstation.repositories.JourneysRepository;
 import com.tv12.busstation.repositories.StopsRepository;
 import com.tv12.busstation.repositories.TicketsRepository;
+import com.tv12.busstation.services.PendingTicketStorage;
 import com.tv12.busstation.services.TicketsService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TicketsServiceImpl implements TicketsService {
     private final JourneysRepository journeysRepository;
+    private final JourneyStopsRepository journeyStopsRepository;
     private final StopsRepository stopsRepository;
     private final TicketsRepository ticketsRepository;
+    private final PendingTicketStorage pendingTicketStorage;
 
     public TicketsServiceImpl(JourneysRepository journeysRepository,
+                              JourneyStopsRepository journeyStopsRepository,
                               StopsRepository stopsRepository,
-                              TicketsRepository ticketsRepository){
+                              TicketsRepository ticketsRepository,
+                              PendingTicketStorage pendingTicketStorage){
         this.journeysRepository = journeysRepository;
+        this.journeyStopsRepository = journeyStopsRepository;
         this.stopsRepository = stopsRepository;
         this.ticketsRepository = ticketsRepository;
+        this.pendingTicketStorage = pendingTicketStorage;
     }
+
+    @Override
+    public Ticket createInPendingStorage(String alias, String surname, String name, String phone, String email, int journeyId, int seatNumber, int stopIdFrom, int stopIdTo) {
+        Journey journey = journeysRepository.getReferenceById(journeyId);
+        Stop from = stopsRepository.getReferenceById(stopIdFrom);
+        Stop to = stopsRepository.getReferenceById(stopIdTo);
+        Ticket ticket = new Ticket(
+                null,
+                surname,
+                name,
+                phone,
+                email,
+                journey,
+                seatNumber,
+                from,
+                to,
+                journeyStopsRepository.getTripPrice(
+                        journeyId,
+                        journeyStopsRepository.getJourneyStop(journeyId, stopIdFrom).getTimestamp(),
+                        journeyStopsRepository.getJourneyStop(journeyId, stopIdTo).getTimestamp()
+                ),
+                Timestamp.from(Instant.now())
+        );
+        pendingTicketStorage.addTicket(alias, ticket);
+        return ticket;
+    }
+
     @Override
     public void create(String surname, String name, String phone, String email,
                        int journeyId, int seatNumber, int stopNumberFrom, int stopNumberTo, int price) {

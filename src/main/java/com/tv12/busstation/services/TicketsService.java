@@ -3,6 +3,9 @@ package com.tv12.busstation.services;
 import com.tv12.busstation.entities.Ticket;
 
 public interface TicketsService {
+    Ticket createInPendingStorage(String alias, String surname, String name, String phone, String email,
+                                int journeyId, int seatNumber, int stopNumberFrom, int stopNumberTo);
+
     void create(String surname, String name, String phone, String email,
                 int journeyId, int seatNumber, int stopNumberFrom, int stopNumberTo, int price);
 

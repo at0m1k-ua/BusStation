@@ -72,7 +72,7 @@
         <td><button type="submit" class="btn btn-primary">Зберегти</button></td>
       </form>
       <td>
-        <form action="admin/tickets" th:method="delete">
+        <form action="/admin/tickets" th:method="delete">
           <input name="id" type="hidden" th:value="${ticket.getId()}">
           <input name="journeyId" type="hidden" th:value="${ticket.getJourney().getId()}">
           <button type="submit" class="btn btn-primary">Видалити</button>

@@ -1,7 +1,6 @@
 package com.tv12.busstation.models.admin;
 
 import com.tv12.busstation.entities.Journey;
-import com.tv12.busstation.entities.Stop;
 import com.tv12.busstation.entities.Ticket;
 import org.springframework.web.servlet.ModelAndView;
 

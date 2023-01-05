@@ -1,7 +1,6 @@
 package com.tv12.busstation.models;
 
-import com.tv12.busstation.domain.Trip;
-import com.tv12.busstation.domain.ui.UiTrip;
+import com.tv12.busstation.ui.UiTrip;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
