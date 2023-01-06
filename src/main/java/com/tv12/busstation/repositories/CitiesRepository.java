@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CitiesRepository extends JpaRepository<City, Integer> {
-    boolean existsByName(String name);
     List<City> findAllByOrderByNameAsc();
 }
