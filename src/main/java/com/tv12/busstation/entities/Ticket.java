@@ -1,53 +1,52 @@
 package com.tv12.busstation.entities;
 
 import lombok.*;
+import org.springframework.data.annotation.AccessType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Getter
-@Setter
-@ToString
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@AccessType(AccessType.Type.PROPERTY)
 @Table(name = "tickets")
 public class Ticket {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, columnDefinition = "INT")
+    @Column(value = "id")
     private Integer id;
 
-    @Column(name = "surname", nullable = false)
+    @Column(value = "surname")
     private String surname;
 
-    @Column(name = "name", nullable = false)
+    @Column(value = "name")
     private String name;
 
-    @Column(name = "phone", nullable = false)
+    @Column(value = "phone")
     private String phone;
 
-    @Column(name = "email", nullable = false)
+    @Column(value = "email")
     private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "journey_id", nullable = false, columnDefinition = "INT")
+
+    @Column(value = "journey_id")
     private Journey journey;
 
-    @Column(name = "seat_number", nullable = false, columnDefinition = "INT")
+    @Column(value = "seat_number")
     private int seatNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "stop_number_from", nullable = false, columnDefinition = "INT")
+    @Column(value = "stop_number_from")
     private Stop from;
 
-    @ManyToOne
-    @JoinColumn(name = "stop_number_to", nullable = false, columnDefinition = "INT")
+    @Column(value = "stop_number_to")
     private Stop to;
 
-    @Column(name = "price", nullable = false, columnDefinition = "INT")
+    @Column(value = "price")
     private int price;
 
-    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP")
+    @Column(value = "created_at")
     private Timestamp createdAt;
 }

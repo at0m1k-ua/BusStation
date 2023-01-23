@@ -8,23 +8,23 @@ import com.tv12.busstation.repositories.BusesRepository;
 import com.tv12.busstation.repositories.DriversRepository;
 import com.tv12.busstation.repositories.JourneysRepository;
 import com.tv12.busstation.repositories.RoutesRepository;
-import com.tv12.busstation.services.JourneysService;
+import com.tv12.busstation.services.JourneyDAO;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 
 @Service
-public class JourneysServiceImpl implements JourneysService {
+public class JourneyDAOImpl implements JourneyDAO {
 
     private final JourneysRepository journeysRepository;
     private final RoutesRepository routesRepository;
     private final BusesRepository busesRepository;
     private final DriversRepository driversRepository;
 
-    public JourneysServiceImpl(JourneysRepository journeysRepository,
-                               RoutesRepository routesRepository,
-                               BusesRepository busesRepository,
-                               DriversRepository driversRepository) {
+    public JourneyDAOImpl(JourneysRepository journeysRepository,
+                          RoutesRepository routesRepository,
+                          BusesRepository busesRepository,
+                          DriversRepository driversRepository) {
         this.journeysRepository = journeysRepository;
         this.routesRepository = routesRepository;
         this.busesRepository = busesRepository;
@@ -36,7 +36,7 @@ public class JourneysServiceImpl implements JourneysService {
         Route route = routesRepository.findById(routeId).get();
         Bus bus = busesRepository.findById(busId).get();
         Driver driver = driversRepository.findById(driverId).get();
-        journeysRepository.saveAndFlush(new Journey(null, route, bus, driver, startDate));
+        journeysRepository.save(new Journey(null, route, bus, driver, startDate));
     }
 
     @Override
@@ -56,7 +56,7 @@ public class JourneysServiceImpl implements JourneysService {
         journey.setBus(busesRepository.findById(busId).get());
         journey.setDriver(driversRepository.findById(driverId).get());
         journey.setStartDate(startDate);
-        journeysRepository.saveAndFlush(journey);
+        journeysRepository.save(journey);
     }
 
     @Override

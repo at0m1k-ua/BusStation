@@ -1,24 +1,26 @@
 package com.tv12.busstation.entities;
 
 import lombok.*;
+import org.springframework.data.annotation.AccessType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@AccessType(AccessType.Type.PROPERTY)
 @Table(name = "routes")
 public class Route {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, columnDefinition = "INT")
+    @Column(value = "id")
     private int id;
 
-    @OneToMany(mappedBy = "route")
-    @OrderBy(value = "day_shift asc, time asc")
+    @MappedCollection(idColumn = "route_id")
     private List<Stop> stops;
 
     public Stop getFirstStop() {

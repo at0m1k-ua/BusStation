@@ -1,46 +1,36 @@
 package com.tv12.busstation.entities;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import org.springframework.data.annotation.AccessType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import java.sql.Date;
 
-@Getter
-@Setter
-@ToString
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@AccessType(AccessType.Type.PROPERTY)
 @Table(name = "journeys")
 public class Journey {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, columnDefinition = "INT")
+    @Column(value = "id")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "route_id", nullable = false, columnDefinition = "INT")
+    @Column(value = "route_id")
     private Route route;
 
-    @ManyToOne
-    @JoinColumn(name = "bus_id", nullable = false, columnDefinition = "INT")
+    @Column(value = "bus_id")
     private Bus bus;
 
-    @ManyToOne
-    @JoinColumn(name = "driver_id", nullable = false, columnDefinition = "INT")
+    @Column(value = "driver_id")
     private Driver driver;
 
-    @Column(name = "start_date", nullable = false, columnDefinition = "DATE")
+    @Column(value = "start_date")
     private Date startDate;
 }

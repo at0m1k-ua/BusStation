@@ -2,15 +2,15 @@ package com.tv12.busstation.services.impl;
 
 import com.tv12.busstation.entities.Driver;
 import com.tv12.busstation.repositories.DriversRepository;
-import com.tv12.busstation.services.DriversService;
+import com.tv12.busstation.services.DriverDAO;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DriversServiceImpl implements DriversService {
+public class DriverDAOImpl implements DriverDAO {
 
     private final DriversRepository driversRepository;
 
-    public DriversServiceImpl(DriversRepository driversRepository) {
+    public DriverDAOImpl(DriversRepository driversRepository) {
         this.driversRepository = driversRepository;
     }
 
@@ -20,7 +20,7 @@ public class DriversServiceImpl implements DriversService {
                        String patronymic,
                        String phone,
                        String email) {
-        driversRepository.saveAndFlush(new Driver(
+        driversRepository.save(new Driver(
                 null,
                 surname,
                 name,
@@ -48,7 +48,7 @@ public class DriversServiceImpl implements DriversService {
         driver.setPatronymic(patronymic);
         driver.setPhone(phone);
         driver.setEmail(email);
-        driversRepository.saveAndFlush(driver);
+        driversRepository.save(driver);
     }
 
     @Override

@@ -5,10 +5,10 @@ import com.tv12.busstation.LiqPayProperties;
 import com.tv12.busstation.entities.JourneyStop;
 import com.tv12.busstation.entities.Ticket;
 import com.tv12.busstation.models.PaymentModel;
-import com.tv12.busstation.services.JourneyStopsService;
+import com.tv12.busstation.services.JourneyStopDAO;
 import com.tv12.busstation.services.PaymentAliasGenerator;
 import com.tv12.busstation.services.PendingTicketStorage;
-import com.tv12.busstation.services.TicketsService;
+import com.tv12.busstation.services.TicketDAO;
 import com.tv12.busstation.ui.UiDateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,17 +20,17 @@ import java.util.Map;
 @Controller
 public class PaymentController {
 
-    private final JourneyStopsService journeyStopsService;
-    private final TicketsService ticketsService;
+    private final JourneyStopDAO journeyStopDAO;
+    private final TicketDAO ticketDAO;
     private final PendingTicketStorage pendingTicketStorage;
     private final PaymentAliasGenerator paymentAliasGenerator;
 
-    public PaymentController(JourneyStopsService journeyStopsService,
-                             TicketsService ticketsService,
+    public PaymentController(JourneyStopDAO journeyStopDAO,
+                             TicketDAO ticketDAO,
                              PendingTicketStorage pendingTicketStorage,
                              PaymentAliasGenerator paymentAliasGenerator) {
-        this.journeyStopsService = journeyStopsService;
-        this.ticketsService = ticketsService;
+        this.journeyStopDAO = journeyStopDAO;
+        this.ticketDAO = ticketDAO;
         this.pendingTicketStorage = pendingTicketStorage;
         this.paymentAliasGenerator = paymentAliasGenerator;
     }
@@ -46,7 +46,7 @@ public class PaymentController {
                                 @RequestParam String phone) {
         String alias = paymentAliasGenerator.getAlias();
 
-        Ticket ticket = ticketsService.createInPendingStorage(
+        Ticket ticket = ticketDAO.createInPendingStorage(
                 alias,
                 surname,
                 name,
@@ -58,8 +58,8 @@ public class PaymentController {
                 stopIdTo
         );
 
-        JourneyStop from = journeyStopsService.getByIds(journeyId, stopIdFrom);
-        JourneyStop to = journeyStopsService.getByIds(journeyId, stopIdTo);
+        JourneyStop from = journeyStopDAO.getByIds(journeyId, stopIdFrom);
+        JourneyStop to = journeyStopDAO.getByIds(journeyId, stopIdTo);
 
         UiDateTime departureDateTime = new UiDateTime(from.getTimestamp());
         UiDateTime arrivalDateTime = new UiDateTime(to.getTimestamp());

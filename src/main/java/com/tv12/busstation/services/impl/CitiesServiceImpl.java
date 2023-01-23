@@ -2,13 +2,13 @@ package com.tv12.busstation.services.impl;
 
 import com.tv12.busstation.entities.City;
 import com.tv12.busstation.repositories.CitiesRepository;
-import com.tv12.busstation.services.CitiesService;
+import com.tv12.busstation.services.CityDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CitiesServiceImpl implements CitiesService {
+public class CitiesServiceImpl implements CityDAO {
 
     public final CitiesRepository citiesRepository;
 
@@ -18,7 +18,7 @@ public class CitiesServiceImpl implements CitiesService {
 
     @Override
     public void create(String name) {
-        citiesRepository.saveAndFlush(new City(null, name));
+        citiesRepository.save(new City(null, name));
     }
 
     @Override
@@ -30,7 +30,7 @@ public class CitiesServiceImpl implements CitiesService {
     public void update(int id, String name) {
         City city = citiesRepository.findById(id).get();
         city.setName(name);
-        citiesRepository.saveAndFlush(city);
+        citiesRepository.save(city);
     }
 
     @Override

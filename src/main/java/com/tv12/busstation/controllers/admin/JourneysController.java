@@ -1,10 +1,10 @@
 package com.tv12.busstation.controllers.admin;
 
 import com.tv12.busstation.models.admin.JourneysModel;
-import com.tv12.busstation.services.BusesService;
-import com.tv12.busstation.services.DriversService;
-import com.tv12.busstation.services.JourneysService;
-import com.tv12.busstation.services.RoutesService;
+import com.tv12.busstation.services.BusDAO;
+import com.tv12.busstation.services.DriverDAO;
+import com.tv12.busstation.services.JourneyDAO;
+import com.tv12.busstation.services.RouteDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,19 +14,19 @@ import java.sql.Date;
 @Controller
 public class JourneysController {
 
-    private final JourneysService journeysService;
-    private final RoutesService routesService;
-    private final BusesService busesService;
-    private final DriversService driversService;
+    private final JourneyDAO journeysService;
+    private final RouteDAO routeDAO;
+    private final BusDAO busesDAO;
+    private final DriverDAO driversService;
 
-    public JourneysController(JourneysService journeysService,
-                              RoutesService routesService,
-                              BusesService busesService,
-                              DriversService driversService) {
-        this.journeysService = journeysService;
-        this.routesService = routesService;
-        this.busesService = busesService;
-        this.driversService = driversService;
+    public JourneysController(JourneyDAO journeyDAO,
+                              RouteDAO routeDAO,
+                              BusDAO busDAO,
+                              DriverDAO driverDAO) {
+        this.journeysService = journeyDAO;
+        this.routeDAO = routeDAO;
+        this.busesDAO = busDAO;
+        this.driversService = driverDAO;
     }
 
     @PostMapping("/admin/journeys")
@@ -42,8 +42,8 @@ public class JourneysController {
     public ModelAndView read() {
         JourneysModel model = new JourneysModel();
         model.setJourneys(journeysService.readAll());
-        model.setRoutes(routesService.readAll());
-        model.setBuses(busesService.readAll());
+        model.setRoutes(routeDAO.readAll());
+        model.setBuses(busesDAO.readAll());
         model.setDrivers(driversService.readAll());
         return model;
     }

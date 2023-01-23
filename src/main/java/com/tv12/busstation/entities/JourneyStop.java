@@ -1,25 +1,34 @@
 package com.tv12.busstation.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.*;
+import org.springframework.data.annotation.AccessType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Embedded;
+import org.springframework.data.relational.core.mapping.Table;
+
 import java.sql.Timestamp;
 
-@Setter
-@Getter
+
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@AccessType(AccessType.Type.PROPERTY)
 @Table(name = "journey_stops")
 public class JourneyStop {
-    @EmbeddedId
+    @Id
+    @Embedded.Empty
     private JourneyStopPrimaryKey id;
 
-    @Column(name = "city_name")
+    @Column(value = "city_name")
     private String cityName;
 
-    @Column(name = "timestamp")
+    @Column(value = "timestamp")
     private Timestamp timestamp;
 }

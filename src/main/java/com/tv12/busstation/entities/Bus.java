@@ -1,32 +1,29 @@
 package com.tv12.busstation.entities;
 
 import lombok.*;
+import org.springframework.data.annotation.AccessType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.*;
-
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(
-        name = "buses",
-        uniqueConstraints = {@UniqueConstraint(name = "licence_plate_constraint", columnNames = "licence_plate_number")}
-)
+@Table(name = "buses")
+@AccessType(AccessType.Type.PROPERTY)
+@Builder
 public class Bus {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, columnDefinition = "INT")
+    @Column(value = "id")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "model_id", nullable = false, columnDefinition = "INT")
+    @Column(value = "model_id")
     private BusModel model;
 
-    @Column(name = "color", nullable = false, columnDefinition = "TEXT")
+    @Column(value = "color")
     private String color;
 
-    @Column(name = "licence_plate_number", nullable = false, columnDefinition = "TEXT")
+    @Column(value = "licence_plate_number")
     private String licencePlateNumber;
 
     @Override

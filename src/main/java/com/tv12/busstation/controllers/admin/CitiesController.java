@@ -1,7 +1,7 @@
 package com.tv12.busstation.controllers.admin;
 
 import com.tv12.busstation.models.admin.CitiesModel;
-import com.tv12.busstation.services.CitiesService;
+import com.tv12.busstation.services.CityDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,9 +9,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class CitiesController {
 
-    private final CitiesService citiesService;
+    private final CityDAO citiesService;
 
-    public CitiesController(CitiesService citiesService) {
+    public CitiesController(CityDAO citiesService) {
         this.citiesService = citiesService;
     }
 

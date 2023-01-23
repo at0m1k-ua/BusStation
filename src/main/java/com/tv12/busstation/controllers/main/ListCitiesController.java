@@ -1,7 +1,7 @@
 package com.tv12.busstation.controllers.main;
 
 import com.tv12.busstation.entities.City;
-import com.tv12.busstation.services.CitiesService;
+import com.tv12.busstation.services.CityDAO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,9 +12,9 @@ import java.util.List;
 @Controller
 public class ListCitiesController {
 
-    private final CitiesService citiesService;
+    private final CityDAO citiesService;
 
-    public ListCitiesController(CitiesService citiesService) {
+    public ListCitiesController(CityDAO citiesService) {
         this.citiesService = citiesService;
     }
 

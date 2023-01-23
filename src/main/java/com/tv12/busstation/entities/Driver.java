@@ -1,35 +1,36 @@
 package com.tv12.busstation.entities;
 
 import lombok.*;
+import org.springframework.data.annotation.AccessType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "drivers",
-        uniqueConstraints = {@UniqueConstraint(name = "phone_constraint", columnNames = "phone")})
+@AccessType(AccessType.Type.PROPERTY)
+@Table(name = "drivers")
 public class Driver {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, columnDefinition = "INT")
+    @Column(value = "id")
     private Integer id;
 
-    @Column(name = "surname", nullable = false, columnDefinition = "TEXT")
+    @Column(value = "surname")
     private String surname;
 
-    @Column(name = "name", nullable = false, columnDefinition = "TEXT")
+    @Column(value = "name")
     private String name;
 
-    @Column(name = "patronymic", nullable = false, columnDefinition = "TEXT")
+    @Column(value = "patronymic")
     private String patronymic;
 
-    @Column(name = "phone", nullable = false, columnDefinition = "TEXT")
+    @Column(value = "phone")
     private String phone;
 
-    @Column(name = "email", nullable = false, columnDefinition = "TEXT")
+    @Column(value = "email")
     private String email;
 
     @Override

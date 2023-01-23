@@ -5,22 +5,22 @@ import com.tv12.busstation.entities.JourneyStop;
 import com.tv12.busstation.repositories.JourneySeatsRepository;
 import com.tv12.busstation.repositories.JourneyStopsRepository;
 import com.tv12.busstation.repositories.JourneysRepository;
-import com.tv12.busstation.services.JourneySeatsService;
+import com.tv12.busstation.services.JourneySeatDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class JourneySeatsServiceImpl implements JourneySeatsService {
+public class JourneySeatDAOImpl implements JourneySeatDAO {
 
     private final JourneysRepository journeysRepository;
     private final JourneySeatsRepository journeySeatsRepository;
     private final JourneyStopsRepository journeyStopsRepository;
 
-    public JourneySeatsServiceImpl(JourneysRepository journeysRepository,
-                                   JourneySeatsRepository journeySeatsRepository,
-                                   JourneyStopsRepository journeyStopsRepository) {
+    public JourneySeatDAOImpl(JourneysRepository journeysRepository,
+                              JourneySeatsRepository journeySeatsRepository,
+                              JourneyStopsRepository journeyStopsRepository) {
         this.journeysRepository = journeysRepository;
         this.journeySeatsRepository = journeySeatsRepository;
         this.journeyStopsRepository = journeyStopsRepository;
@@ -28,7 +28,7 @@ public class JourneySeatsServiceImpl implements JourneySeatsService {
 
     @Override
     public List<Integer> getAvailableSeats(int journeyId, int stopIdFrom, int stopIdTo) {
-        Journey journey = journeysRepository.getReferenceById(journeyId);
+        Journey journey = journeysRepository.findById(journeyId).get();
         int seatsNumber = journey.getBus().getModel().getSeatsNumber();
 
         JourneyStop from = journeyStopsRepository.getJourneyStop(journeyId, stopIdFrom);

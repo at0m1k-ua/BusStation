@@ -1,24 +1,22 @@
 package com.tv12.busstation.entities;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.data.annotation.AccessType;
+import org.springframework.data.relational.core.mapping.Column;
 
-import javax.persistence.*;
-import java.io.Serializable;
 
-@Setter
-@Getter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Embeddable
-public class JourneyStopPrimaryKey implements Serializable {
-    @ManyToOne
-    @JoinColumn(name = "journey_id")
+@AccessType(AccessType.Type.PROPERTY)
+public class JourneyStopPrimaryKey{
+    @Column(value = "journey_id")
     private Journey journey;
 
-    @ManyToOne
-    @JoinColumn(name = "stop_id")
+    @Column(value = "stop_id")
     private Stop stop;
 }

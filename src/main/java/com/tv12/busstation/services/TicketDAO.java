@@ -2,7 +2,7 @@ package com.tv12.busstation.services;
 
 import com.tv12.busstation.entities.Ticket;
 
-public interface TicketsService {
+public interface TicketDAO {
     Ticket createInPendingStorage(String alias, String surname, String name, String phone, String email,
                                 int journeyId, int seatNumber, int stopNumberFrom, int stopNumberTo);
 

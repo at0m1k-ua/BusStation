@@ -3,21 +3,21 @@ package com.tv12.busstation.services.impl;
 import com.tv12.busstation.entities.Route;
 import com.tv12.busstation.entities.Stop;
 import com.tv12.busstation.repositories.RoutesRepository;
-import com.tv12.busstation.services.RoutesService;
+import com.tv12.busstation.services.RouteDAO;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class RoutesServiceImpl implements RoutesService {
+public class RouteDAOImpl implements RouteDAO {
 
     private final RoutesRepository routesRepository;
 
-    public RoutesServiceImpl(RoutesRepository routesRepository) {
+    public RouteDAOImpl(RoutesRepository routesRepository) {
         this.routesRepository = routesRepository;
     }
 
     @Override
     public int create() {
-        return routesRepository.saveAndFlush(new Route()).getId();
+        return routesRepository.save(new Route()).getId();
     }
 
     @Override

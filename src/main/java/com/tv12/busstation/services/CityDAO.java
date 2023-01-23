@@ -4,7 +4,7 @@ import com.tv12.busstation.entities.City;
 
 import java.util.List;
 
-public interface CitiesService {
+public interface CityDAO {
     void create(String name);
     List<City> readAll();
     void update(int id, String name);

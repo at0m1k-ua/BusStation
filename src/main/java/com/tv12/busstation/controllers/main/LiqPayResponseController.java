@@ -19,19 +19,19 @@ import java.util.Map;
 @Controller
 public class LiqPayResponseController {
     private final PendingTicketStorage pendingTicketStorage;
-    private final TicketsService ticketsService;
-    private final JourneyStopsService journeyStopsService;
+    private final TicketDAO ticketDAO;
+    private final JourneyStopDAO journeyStopDAO;
     private final TemplateEngine templateEngine;
     private final EmailSender emailSender;
 
     public LiqPayResponseController(PendingTicketStorage pendingTicketStorage,
-                                    TicketsService ticketsService,
-                                    JourneyStopsService journeyStopsService,
+                                    TicketDAO ticketDAO,
+                                    JourneyStopDAO journeyStopDAO,
                                     TemplateEngine templateEngine,
                                     EmailSender emailSender) {
         this.pendingTicketStorage = pendingTicketStorage;
-        this.ticketsService = ticketsService;
-        this.journeyStopsService = journeyStopsService;
+        this.ticketDAO = ticketDAO;
+        this.journeyStopDAO = journeyStopDAO;
         this.templateEngine = templateEngine;
         this.emailSender = emailSender;
     }
@@ -45,7 +45,7 @@ public class LiqPayResponseController {
         String alias = dataMap.get("order_id");
         Ticket ticket = pendingTicketStorage.getTicket(alias);
 
-        ticketsService.create(
+        ticketDAO.create(
                 ticket.getSurname(),
                 ticket.getName(),
                 ticket.getPhone(),
@@ -57,8 +57,8 @@ public class LiqPayResponseController {
                 ticket.getPrice()
         );
 
-        JourneyStop from = journeyStopsService.getByIds(ticket.getJourney().getId(), ticket.getFrom().getId());
-        JourneyStop to = journeyStopsService.getByIds(ticket.getJourney().getId(), ticket.getTo().getId());
+        JourneyStop from = journeyStopDAO.getByIds(ticket.getJourney().getId(), ticket.getFrom().getId());
+        JourneyStop to = journeyStopDAO.getByIds(ticket.getJourney().getId(), ticket.getTo().getId());
         Driver driver = ticket.getJourney().getDriver();
 
         Context context = new Context();

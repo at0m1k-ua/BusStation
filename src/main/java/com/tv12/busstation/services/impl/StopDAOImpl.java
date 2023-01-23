@@ -6,21 +6,21 @@ import com.tv12.busstation.entities.Stop;
 import com.tv12.busstation.repositories.CitiesRepository;
 import com.tv12.busstation.repositories.RoutesRepository;
 import com.tv12.busstation.repositories.StopsRepository;
-import com.tv12.busstation.services.StopsService;
+import com.tv12.busstation.services.StopDAO;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
 
 @Service
-public class StopsServiceImpl implements StopsService {
+public class StopDAOImpl implements StopDAO {
 
     private final RoutesRepository routesRepository;
     private final StopsRepository stopsRepository;
     private final CitiesRepository citiesRepository;
 
-    public StopsServiceImpl(RoutesRepository routesRepository,
-                            StopsRepository stopsRepository,
-                            CitiesRepository citiesRepository) {
+    public StopDAOImpl(RoutesRepository routesRepository,
+                       StopsRepository stopsRepository,
+                       CitiesRepository citiesRepository) {
         this.routesRepository = routesRepository;
         this.stopsRepository = stopsRepository;
         this.citiesRepository = citiesRepository;
@@ -46,7 +46,7 @@ public class StopsServiceImpl implements StopsService {
         stop.setDayShift(dayShift);
         stop.setTime(time);
         stop.setPrice(price);
-        stopsRepository.saveAndFlush(stop);
+        stopsRepository.save(stop);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.tv12.busstation.controllers.admin;
 
 import com.tv12.busstation.models.admin.DriversModel;
-import com.tv12.busstation.services.DriversService;
+import com.tv12.busstation.services.DriverDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,10 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class DriversController {
 
-    private final DriversService driversService;
+    private final DriverDAO driverDAO;
 
-    public DriversController(DriversService driversService) {
-        this.driversService = driversService;
+    public DriversController(DriverDAO driverDAO) {
+        this.driverDAO = driverDAO;
     }
 
     @PostMapping("/admin/drivers")
@@ -21,14 +21,14 @@ public class DriversController {
                          @RequestParam String patronymic,
                          @RequestParam String phone,
                          @RequestParam String email) {
-        driversService.create(surname, name, patronymic, phone, email);
+        driverDAO.create(surname, name, patronymic, phone, email);
         return "redirect:/admin/drivers";
     }
 
     @GetMapping("/admin/drivers")
     public ModelAndView read() {
         DriversModel model = new DriversModel();
-        model.setDrivers(driversService.readAll());
+        model.setDrivers(driverDAO.readAll());
         return model;
     }
 
@@ -39,7 +39,7 @@ public class DriversController {
                          @RequestParam String patronymic,
                          @RequestParam String phone,
                          @RequestParam String email) {
-        driversService.update(
+        driverDAO.update(
                 id,
                 surname,
                 name,
@@ -52,7 +52,7 @@ public class DriversController {
 
     @DeleteMapping("/admin/drivers")
     public String delete(@RequestParam int id) {
-        driversService.delete(id);
+        driverDAO.delete(id);
         return "redirect:/admin/drivers";
     }
 }

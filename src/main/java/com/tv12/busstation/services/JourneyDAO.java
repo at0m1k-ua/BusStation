@@ -4,7 +4,7 @@ import com.tv12.busstation.entities.Journey;
 
 import java.sql.Date;
 
-public interface JourneysService {
+public interface JourneyDAO {
     void create(int routeId, int busId, int driverId, Date startDate);
     Iterable<Journey> readAll();
     Journey readById(int id);

@@ -6,7 +6,7 @@ import com.tv12.busstation.repositories.JourneysRepository;
 import com.tv12.busstation.repositories.StopsRepository;
 import com.tv12.busstation.repositories.TicketsRepository;
 import com.tv12.busstation.services.PendingTicketStorage;
-import com.tv12.busstation.services.TicketsService;
+import com.tv12.busstation.services.TicketDAO;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -14,18 +14,18 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Service
-public class TicketsServiceImpl implements TicketsService {
+public class TicketDAOImpl implements TicketDAO {
     private final JourneysRepository journeysRepository;
     private final JourneyStopsRepository journeyStopsRepository;
     private final StopsRepository stopsRepository;
     private final TicketsRepository ticketsRepository;
     private final PendingTicketStorage pendingTicketStorage;
 
-    public TicketsServiceImpl(JourneysRepository journeysRepository,
-                              JourneyStopsRepository journeyStopsRepository,
-                              StopsRepository stopsRepository,
-                              TicketsRepository ticketsRepository,
-                              PendingTicketStorage pendingTicketStorage){
+    public TicketDAOImpl(JourneysRepository journeysRepository,
+                         JourneyStopsRepository journeyStopsRepository,
+                         StopsRepository stopsRepository,
+                         TicketsRepository ticketsRepository,
+                         PendingTicketStorage pendingTicketStorage){
         this.journeysRepository = journeysRepository;
         this.journeyStopsRepository = journeyStopsRepository;
         this.stopsRepository = stopsRepository;
@@ -35,9 +35,9 @@ public class TicketsServiceImpl implements TicketsService {
 
     @Override
     public Ticket createInPendingStorage(String alias, String surname, String name, String phone, String email, int journeyId, int seatNumber, int stopIdFrom, int stopIdTo) {
-        Journey journey = journeysRepository.getReferenceById(journeyId);
-        Stop from = stopsRepository.getReferenceById(stopIdFrom);
-        Stop to = stopsRepository.getReferenceById(stopIdTo);
+        Journey journey = journeysRepository.findById(journeyId).get();
+        Stop from = stopsRepository.findById(stopIdFrom).get();
+        Stop to = stopsRepository.findById(stopIdTo).get();
         Ticket ticket = new Ticket(
                 null,
                 surname,
@@ -99,6 +99,6 @@ public class TicketsServiceImpl implements TicketsService {
         ticket.setPrice(price);
         ticket.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 
-        ticketsRepository.saveAndFlush(ticket);
+        ticketsRepository.save(ticket);
     }
 }

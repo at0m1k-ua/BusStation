@@ -1,7 +1,7 @@
 package com.tv12.busstation.controllers.main;
 
 import com.tv12.busstation.models.MainModel;
-import com.tv12.busstation.services.TripsService;
+import com.tv12.busstation.services.TripDAO;
 import com.tv12.busstation.ui.UiTrip;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +22,10 @@ public class ListTripsController {
             .appendPattern("M/d/yyyy")
             .toFormatter();
 
-    private final TripsService tripsService;
+    private final TripDAO tripDAO;
 
-    public ListTripsController(TripsService tripsService) {
-        this.tripsService = tripsService;
+    public ListTripsController(TripDAO tripDAO) {
+        this.tripDAO = tripDAO;
     }
 
     @GetMapping("/listTrips")
@@ -40,9 +40,9 @@ public class ListTripsController {
             mainModel.setTo(to);
             mainModel.setStartDate(startDate);
             mainModel.setTrips(
-                    tripsService.getTrips(from, to, startDate)
+                    tripDAO.getTrips(from, to, startDate)
                             .stream()
-                            .map(trip -> UiTrip.of(trip, tripsService.getPrice(trip)))
+                            .map(trip -> UiTrip.of(trip, tripDAO.getPrice(trip)))
                             .toList());
 
         } catch (DateTimeParseException e) {

@@ -8,24 +8,24 @@ import com.tv12.busstation.repositories.JourneyStopsRepository;
 import com.tv12.busstation.repositories.JourneysRepository;
 import com.tv12.busstation.repositories.StopsRepository;
 import com.tv12.busstation.repositories.TripsRepository;
-import com.tv12.busstation.services.TripsService;
+import com.tv12.busstation.services.TripDAO;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
 
 @Service
-public class TripsServiceImpl implements TripsService {
+public class TripDAOImpl implements TripDAO {
 
     private final TripsRepository tripsRepository;
     private final JourneyStopsRepository journeyStopsRepository;
     private final JourneysRepository journeysRepository;
     private final StopsRepository stopsRepository;
 
-    public TripsServiceImpl(TripsRepository tripsRepository,
-                            JourneyStopsRepository journeyStopsRepository,
-                            JourneysRepository journeysRepository,
-                            StopsRepository stopsRepository) {
+    public TripDAOImpl(TripsRepository tripsRepository,
+                       JourneyStopsRepository journeyStopsRepository,
+                       JourneysRepository journeysRepository,
+                       StopsRepository stopsRepository) {
         this.tripsRepository = tripsRepository;
         this.journeyStopsRepository = journeyStopsRepository;
         this.journeysRepository = journeysRepository;
@@ -46,11 +46,11 @@ public class TripsServiceImpl implements TripsService {
 
     @Override
     public int getPrice(int journeyId, int stopIdFrom, int stopIdTo) {
-        Journey journey = journeysRepository.getReferenceById(journeyId);
-        Stop from = stopsRepository.getReferenceById(stopIdFrom);
-        Stop to = stopsRepository.getReferenceById(stopIdTo);
+        Journey journey = journeysRepository.findById(journeyId).get();
+        Stop from = stopsRepository.findById(stopIdFrom).get();
+        Stop to = stopsRepository.findById(stopIdTo).get();
 
-        Trip trip = tripsRepository.getReferenceById(new TripPrimaryKey(journey, from, to));
+        Trip trip = tripsRepository.findById(new TripPrimaryKey(journey, from, to)).get();
         return getPrice(trip);
     }
 

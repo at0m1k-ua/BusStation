@@ -1,24 +1,23 @@
 package com.tv12.busstation.entities;
 
 import lombok.*;
+import org.springframework.data.annotation.AccessType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.*;
 
-@Setter
-@Getter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(
-        name = "cities",
-        uniqueConstraints = {@UniqueConstraint(name = "name_constraint", columnNames = "name")}
-)
+@AccessType(AccessType.Type.PROPERTY)
+@Table(name = "cities")
 public class City {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, columnDefinition = "INT")
+    @Column(value = "id")
     private Integer id;
 
-    @Column(name = "name", columnDefinition = "TEXT")
+    @Column(value = "name")
     private String name;
 }
