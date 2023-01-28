@@ -959,3 +959,51 @@ body {
   flex-direction: column;
   gap: 30px;
 }
+
+.auth__container {
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+form {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+label {
+  float: left; /* This will move the label to the left of the input */
+  width: 100px; /* This will set a fixed width for the label */
+  text-align: right; /* This will align the text of the label to the right */
+  margin-right: 10px; /* This will create some space between the label and the input */
+  padding-top: 10px; /* This will create some space between the label and the top of the form */
+}
+
+input[type="email"], input[type="password"] {
+  width: 180px; /* This will set a fixed width for the input */
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  float: left; /* This will move the input to the right of the label */
+}
+
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.clear{
+  clear:both;
+}
